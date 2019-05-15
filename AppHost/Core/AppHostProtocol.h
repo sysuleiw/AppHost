@@ -10,6 +10,8 @@
 @import WebKit;
 @class AppHostViewController;
 
+typedef void (^AppHostResponseCallback)(id responseData);
+
 static NSString *const kAppHostURLScheme = @"apphost";
 static NSString *const kAppHostURLProtocal = @"apphost://";
 static NSString *const kAppHostURLImageHost = @"image.apphost.hite.me";

@@ -26,7 +26,21 @@
     window.appHost.__fire = function(_action, _data) {
         var func = reqs[_action + ""];
         if (typeof func == 'function') {
-            func(_data);
+            var respCallback = null;
+            var callBackId = _data['cbk'];
+            if (typeof callBackId != "undefined")
+            {
+                respCallback = function(data)
+                {
+                    var fullParam = 
+                    {
+	                    action: callBackId,
+	                    param:data
+                    };
+                    window.webkit.messageHandlers.kAHScriptHandlerName.postMessage(fullParam)
+                }
+            }
+            func(_data, respCallback);
         }
     }
     window.appHost.__callback = function(_callbackKey, _param) {

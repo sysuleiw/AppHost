@@ -43,6 +43,8 @@ NS_ASSUME_NONNULL_BEGIN
 - (Class)responseForActionSignature:(NSString *)signature;
 
 - (NSString *)actionSignature:(NSString *)action withParam:(BOOL)hasParamDict withCallback:(BOOL)hasCallback;
+
+- (NSString *)addResponseCallback:(AppHostResponseCallback)callback;
 @end
 
 NS_ASSUME_NONNULL_END

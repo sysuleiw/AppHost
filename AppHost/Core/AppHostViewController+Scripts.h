@@ -25,6 +25,14 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)fire:(NSString *)actionName param:(NSDictionary *)paramDict;
 
 /**
+ * 1.native层保存callback到字典中,字典key采用uniqueId， 字典key同时存放到paramDict中传给Web;
+ * 2.新增Response，利用uniqueId创建selector，动态添加selector到response中，在selector的实现中通过uniqueId可以得到真实callback
+ * 3.修改__fire函数，通过paramDict判断是否需要回调，如果需要则创建回调函数，在合适的时机可以执行回调；
+ * 4.native主要是保存callback和动态添加selector，web主要是修改js中的__fire接口
+ */
+- (void)fire:(NSString *)actionName param:(NSDictionary *)paramDict callback:(AppHostResponseCallback)callback;
+
+/**
  无返回值的执行 js 代码
  
  @param javaScriptString 可执行的 js 代码

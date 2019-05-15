@@ -8,6 +8,7 @@
 
 #import "AppHostViewController+Scripts.h"
 #import "AppHostViewController+Utils.h"
+#import "AHResponseManager.h"
 
 @implementation AppHostViewController (Scripts)
 
@@ -51,7 +52,16 @@
 {
     [self __execScript:actionName funcName:@"__fire" param:paramDict];
 }
-
+- (void)fire:(NSString *)actionName param:(NSDictionary *)paramDict callback:(AppHostResponseCallback)callback
+{
+    NSString *uniqueStr = [[AHResponseManager defaultManager] addResponseCallback:callback];
+    NSMutableDictionary *mDict = [NSMutableDictionary dictionaryWithDictionary:paramDict];
+    if (uniqueStr.length > 0)
+    {
+        [mDict setObject:uniqueStr forKey:@"cbk"];
+    }
+    [self __execScript:actionName funcName:@"__fire" param:[mDict copy]];
+}
 - (void)__execScript:(NSString *)actionName funcName:(NSString *)funcName param:(NSDictionary *)paramDict
 {
     NSData *objectOfJSON = nil;

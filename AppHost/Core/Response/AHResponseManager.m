@@ -9,7 +9,7 @@
 #import "AHResponseManager.h"
 #import<pthread.h>
 #import "AHDebugResponse.h"
-
+#import "AHCallbackResponse.h"
 @interface AHResponseManager ()
 
 // 以下是注册 response 使用的属性
@@ -45,7 +45,9 @@
 #ifdef AH_DEBUG
                                                     @"AHDebugResponse",
 #endif
-                                                    @"AHAppLoggerResponse"];
+                                                    @"AHAppLoggerResponse",
+                                                    
+                                                    @"AHCallbackResponse"];
         [responseClassNames enumerateObjectsUsingBlock:^(NSString * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
             [kResponeManger.customResponseClasses addObject:NSClassFromString(obj)];
         }];
@@ -125,6 +127,11 @@
     }
     
     return r;
+}
+
+- (NSString *)addResponseCallback:(AppHostResponseCallback)callback
+{
+    return [AHCallbackResponse addResponseCallback:callback];
 }
 
 #ifdef AH_DEBUG
