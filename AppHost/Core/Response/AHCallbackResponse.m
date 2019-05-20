@@ -13,12 +13,18 @@ static NSMutableDictionary *supportActionList = nil;
 static NSMutableDictionary *supportCallbackList = nil;
 static void selectorImp(id self, SEL _cmd, id arg)
 {
-    AppHostResponseCallback callback = (AppHostResponseCallback)[supportCallbackList objectForKey: NSStringFromSelector(_cmd)];
+    NSString *selStr = NSStringFromSelector(_cmd);
+    if (selStr.length == 0)
+    {
+        return;
+    }
+    AppHostResponseCallback callback = (AppHostResponseCallback)[supportCallbackList objectForKey: selStr];
     if (callback)
     {
         callback(arg);
     }
-    [supportCallbackList removeObjectForKey:NSStringFromSelector(_cmd)];
+    [supportCallbackList removeObjectForKey:selStr];
+    [supportActionList removeObjectForKey:[selStr stringByReplacingOccurrencesOfString:@":" withString:@"_"]];
 }
 
 @implementation AHCallbackResponse
