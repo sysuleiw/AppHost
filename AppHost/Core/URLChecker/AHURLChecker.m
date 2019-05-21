@@ -19,9 +19,20 @@ static NSDictionary *_authorizedTable = nil;
 
     dispatch_once(&onceToken, ^{
         _sharedManager = [[self alloc] init];
+        
         // 默认数据
-        NSString *path = [[NSBundle mainBundle] pathForResource:@"app-access" ofType:@"txt"];
+        NSBundle *bundle = [NSBundle bundleForClass:[self class]];
+        NSString *bundlePath = [bundle pathForResource:@"AppHost" ofType:@"bundle"];
+        
+        
+        //方式一
+//        NSString *fileContents = [NSString stringWithContentsOfFile:[bundlePath stringByAppendingPathComponent:@"app-access.txt"] encoding:NSUTF8StringEncoding error:nil];
+        
+        //方式二
+        NSBundle *resBundle = [NSBundle bundleWithPath:bundlePath];
+        NSString *path = [resBundle pathForResource:@"app-access" ofType:@"txt"];
         NSString *fileContents = [NSString stringWithContentsOfFile:path encoding:NSUTF8StringEncoding error:nil];
+
         _authorizedTable = [[AHAppWhiteListParser sharedManager] parserFileContent:fileContents];
     });
 
