@@ -63,7 +63,7 @@
         if (callbackKey.length == 0) {
             sel = NSSelectorFromString([NSString stringWithFormat:@"%@", action]);
         } else {
-            sel = NSSelectorFromString([NSString stringWithFormat:@"%@WithCallback:", action]);
+            sel = NSSelectorFromString([NSString stringWithFormat:@"%@:", action]);
         }
     } else {
         if (callbackKey.length == 0) {
@@ -76,7 +76,16 @@
     if (![self respondsToSelector:sel]) {
         return NO;
     }
-    [self runSelector:sel withObjects:[NSArray arrayWithObjects:paramDict, callbackKey, nil]];
+    NSArray *params;
+    if (paramDict != nil)
+    {
+        params = [NSArray arrayWithObjects:paramDict, callbackKey, nil];
+    }
+    else
+    {
+        params = [NSArray arrayWithObjects:callbackKey, nil];
+    }
+    [self runSelector:sel withObjects:params];
     return YES;
 }
 

@@ -11,10 +11,21 @@
             action: _action,
             param: _data
         };
-        if (_callback) { //如果有回调函数。
+        var func = null;
+        if(typeof _data == "function")
+        {
+            func = _data;
+            delete fullParam.param;
+        }
+        else if(typeof _callback == "function")
+        {
+            func = _callback;
+        }
+        
+        if (func) { //如果有回调函数。
             var rndKey = 'cbk_' + ack_no++;
             fullParam.callbackKey = rndKey;
-            callbackPool[rndKey] = _callback;
+            callbackPool[rndKey] = func;
         }
 
         window.webkit.messageHandlers.kAHScriptHandlerName.postMessage(fullParam)
