@@ -23,7 +23,7 @@
 #import "AppHostViewController+Dispatch.h"
 #import "AppHostViewController+Progressor.h"
 #import "AppHostViewController+Timing.h"
-
+#import "AppHostViewController+NativeResp.h"
 @interface AppHostViewController () <UIScrollViewDelegate, WKUIDelegate, WKScriptMessageHandler>
 
 @property (nonatomic, strong) WKWebView *webView;
@@ -57,7 +57,9 @@ BOOL kGCDWebServer_logging_enabled = YES;
     if (self) {
         // 注意：此时还没有 navigationController。
         self.taskDelegate = [AHSchemeTaskDelegate new];
+        _respHandlers = [NSMutableDictionary new];
         [self.view addSubview:self.webView];
+        [self registerAllRespHandlers];
     }
     return self;
 }
@@ -97,6 +99,10 @@ BOOL kGCDWebServer_logging_enabled = YES;
     [self setupProgressor];
 }
 
++ (BOOL)accessInstanceVariablesDirectly
+{
+    return NO;
+}
 - (void)setUrl:(NSString *)url
 {
     _url = url;
@@ -397,4 +403,28 @@ NSLog(@"[Timing] %@, nowTime = %f", NSStringFromSelector(_cmd), [[NSDate date] t
     return self.navBarStyle;
 }
 
+#pragma mark - respHandlers
+- (void)registerHandler:(NSString *)handlerName handler:(AppHostHandler)handler
+{
+    if (handlerName.length > 0 && handler)
+    {
+        _respHandlers[handlerName] = [handler copy];
+    }
+    else
+    {
+        NSAssert(NO, @"注册信息无效!");
+    }
+}
+
+- (void)removeHandler:(NSString *)handlerName
+{
+    if (handlerName.length > 0)
+    {
+        [_respHandlers removeObjectForKey:handlerName];
+    }
+    else
+    {
+        NSAssert(NO, @"信息无效!");
+    }
+}
 @end

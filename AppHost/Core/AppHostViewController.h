@@ -11,6 +11,8 @@
 #import "AHSchemeTaskDelegate.h"
 #import "AppHostEnum.h"
 
+typedef void (^AppHostResponseCallback)(id responseData);
+typedef void (^AppHostHandler)(id data, AppHostResponseCallback responseCallback);
 static NSString *kAppHostInvokeRequestEvent = @"kAppHostInvokeRequestEvent";
 static NSString *kAppHostInvokeResponseEvent = @"kAppHostInvokeResponseEvent";
 
@@ -59,6 +61,8 @@ static NSString *kAppHostInvokeResponseEvent = @"kAppHostInvokeResponseEvent";
  */
 @property (nonatomic, strong) NSDictionary *backPageParameter;
 
+@property (nonatomic, strong, readonly) NSMutableDictionary *respHandlers;
+
 // 处理 Response 内部发送的事件，这些事件，除了 h5 关心之外，可能 native 本身也很关心
 @property (nonatomic, weak) id<AppHostViewControllerDelegate> appHostDelegate;
 //核心的函数分发机制。可以继承，
@@ -89,4 +93,7 @@ static NSString *kAppHostInvokeResponseEvent = @"kAppHostInvokeResponseEvent";
  */
 - (void)loadIndexFile:(NSString *)fileName inDirectory:(NSURL *)directory domain:(NSString *)baseDomain;
 
+
+- (void)registerHandler:(NSString *)handlerName handler:(AppHostHandler)handler;
+- (void)removeHandler:(NSString *)handlerName;
 @end

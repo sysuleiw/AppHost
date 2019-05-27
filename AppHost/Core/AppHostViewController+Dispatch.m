@@ -18,9 +18,10 @@
 {
     // 增加对异常参数的catch
     @try {
+        NSString *actionKey = [contentJSON objectForKey:kAHActionKey];
         NSDictionary *paramDict = [contentJSON objectForKey:kAHParamKey];
-        NSString *callbackKey = [contentJSON objectForKey:@"callbackKey"];
-        [self callNative:[contentJSON objectForKey:kAHActionKey] parameter:paramDict callbackKey:callbackKey];
+        NSString *callbackKey = [contentJSON objectForKey:kAHCallbackKey];
+        [self callNative:actionKey parameter:paramDict callbackKey:callbackKey];
         
         [[NSNotificationCenter defaultCenter] postNotificationName:kAppHostInvokeRequestEvent object:contentJSON];
     } @catch (NSException *exception) {
@@ -40,11 +41,11 @@
 #pragma mark - private
 - (BOOL)callNative:(NSString *)action parameter:(NSDictionary *)paramDict callbackKey:(NSString *)key
 {
-    AHResponseManager *rm = [AHResponseManager defaultManager];
-    NSString *actionSig = [rm actionSignature:action withParam:paramDict withCallback:key.length > 0];
-    id<AppHostProtocol> response = [rm responseForActionSignature:actionSig withAppHost:self];
-    //
-    if (response == nil || ![response handleAction:action withParam:paramDict callbackKey:key]) {
+    AppHostHandler handler = (AppHostHandler)[self.respHandlers objectForKey:action];
+    AppHostResponseCallback calback = ^(id responseData){
+        [self fireCallback:key param:responseData];
+    };
+    if (handler == nil) {
         NSString *errMsg = [NSString stringWithFormat:@"action (%@) not supported yet.", action];
         AHLog(@"action (%@) not supported yet.", action);
         [self fire:@"NotSupported" param:@{
@@ -52,6 +53,7 @@
                                            }];
         return NO;
     } else {
+        handler(paramDict,calback);
         return YES;
     }
 }

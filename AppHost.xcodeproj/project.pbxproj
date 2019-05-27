@@ -125,6 +125,8 @@
 		8476B1AD21E7678000E97B54 /* renderjson.css in Resources */ = {isa = PBXBuildFile; fileRef = 8476B1AB21E7678000E97B54 /* renderjson.css */; };
 		9B17CC74228B9AAC00B148CC /* AHCallbackResponse.m in Sources */ = {isa = PBXBuildFile; fileRef = 9B17CC72228B9AAC00B148CC /* AHCallbackResponse.m */; };
 		9B17CC75228B9AAC00B148CC /* AHCallbackResponse.h in Headers */ = {isa = PBXBuildFile; fileRef = 9B17CC73228B9AAC00B148CC /* AHCallbackResponse.h */; };
+		9B2D51462297DEF500925DBD /* AppHostViewController+NativeResp.h in Headers */ = {isa = PBXBuildFile; fileRef = 9B2D51442297DEF500925DBD /* AppHostViewController+NativeResp.h */; };
+		9B2D51472297DEF500925DBD /* AppHostViewController+NativeResp.m in Sources */ = {isa = PBXBuildFile; fileRef = 9B2D51452297DEF500925DBD /* AppHostViewController+NativeResp.m */; };
 		9B9AC14A2292A1DA00C6589A /* AppHost.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 9B9AC1492292A1DA00C6589A /* AppHost.bundle */; };
 /* End PBXBuildFile section */
 
@@ -236,6 +238,8 @@
 		8476B1AB21E7678000E97B54 /* renderjson.css */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.css; path = renderjson.css; sourceTree = "<group>"; };
 		9B17CC72228B9AAC00B148CC /* AHCallbackResponse.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AHCallbackResponse.m; sourceTree = "<group>"; };
 		9B17CC73228B9AAC00B148CC /* AHCallbackResponse.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AHCallbackResponse.h; sourceTree = "<group>"; };
+		9B2D51442297DEF500925DBD /* AppHostViewController+NativeResp.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "AppHostViewController+NativeResp.h"; sourceTree = "<group>"; };
+		9B2D51452297DEF500925DBD /* AppHostViewController+NativeResp.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "AppHostViewController+NativeResp.m"; sourceTree = "<group>"; };
 		9B9AC1492292A1DA00C6589A /* AppHost.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = AppHost.bundle; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -402,6 +406,8 @@
 				48D888D621D4D031006E4279 /* AppHostResponse.m */,
 				48D888C521D4D031006E4279 /* AppHostViewController.h */,
 				48D888D521D4D031006E4279 /* AppHostViewController.m */,
+				9B2D51442297DEF500925DBD /* AppHostViewController+NativeResp.h */,
+				9B2D51452297DEF500925DBD /* AppHostViewController+NativeResp.m */,
 				481A06E02265C37600DD57BB /* AppHostViewController+Extend.h */,
 				481A06E12265C37600DD57BB /* AppHostViewController+Extend.m */,
 				48551BC822461C5700CAC76C /* AppHostViewController+Progressor.h */,
@@ -522,6 +528,7 @@
 				48551BB92245E2BA00CAC76C /* AppHostViewController+Scripts.h in Headers */,
 				481A06E22265C37600DD57BB /* AppHostViewController+Extend.h in Headers */,
 				48D888F221D4D031006E4279 /* AppHostCookie.h in Headers */,
+				9B2D51462297DEF500925DBD /* AppHostViewController+NativeResp.h in Headers */,
 				48551BCA22461C5700CAC76C /* AppHostViewController+Progressor.h in Headers */,
 				48D888F121D4D031006E4279 /* AHScriptMessageDelegate.h in Headers */,
 				48D888E421D4D031006E4279 /* AHNavigationBarResponse.h in Headers */,
@@ -665,6 +672,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				483E884C22028FAD00066375 /* HTMLNode.m in Sources */,
+				9B2D51472297DEF500925DBD /* AppHostViewController+NativeResp.m in Sources */,
 				48D8892C21D4D0AD006E4279 /* GCDWebServerStreamedResponse.m in Sources */,
 				481A06E32265C37600DD57BB /* AppHostViewController+Extend.m in Sources */,
 				48D888F021D4D031006E4279 /* AHWebViewScrollPositionManager.m in Sources */,

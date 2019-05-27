@@ -106,3 +106,4 @@ static NSString * _Nonnull kAppHostEventDismissalFromPresented = @"kAppHostEvent
 // core
 static NSString * _Nonnull kAHActionKey = @"action";
 static NSString * _Nonnull kAHParamKey = @"param";
+static NSString * _Nonnull kAHCallbackKey = @"callbackKey";

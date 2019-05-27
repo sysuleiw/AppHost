@@ -71,10 +71,6 @@
 }
 
 #pragma mark - public
-- (NSString *)actionSignature:(NSString *)action withParam:(BOOL)hasParamDict withCallback:(BOOL)hasCallback
-{
-    return [NSString stringWithFormat:@"%@%@%@", action, (hasParamDict?@"_":@""), (hasCallback?@"$":@"")];
-}
 
 - (void)addCustomResponse:(Class<AppHostProtocol>)cls
 {
