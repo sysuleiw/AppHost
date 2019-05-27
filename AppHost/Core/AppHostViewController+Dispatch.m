@@ -42,9 +42,20 @@
 - (BOOL)callNative:(NSString *)action parameter:(NSDictionary *)paramDict callbackKey:(NSString *)key
 {
     AppHostHandler handler = (AppHostHandler)[self.respHandlers objectForKey:action];
-    AppHostResponseCallback calback = ^(id responseData){
-        [self fireCallback:key param:responseData];
-    };
+    AppHostResponseCallback calback = NULL;
+    if (key.length > 0)
+    {
+        calback = ^(id responseData){
+            if (responseData == nil) {
+                responseData = [NSNull null];
+            }
+            [self fireCallback:key param:responseData];
+        };
+    }
+    else
+    {
+        calback = ^(id responseData){};
+    }
     if (handler == nil) {
         NSString *errMsg = [NSString stringWithFormat:@"action (%@) not supported yet.", action];
         AHLog(@"action (%@) not supported yet.", action);
@@ -53,6 +64,7 @@
                                            }];
         return NO;
     } else {
+        //calback已经是堆block无需copy
         handler(paramDict,calback);
         return YES;
     }

@@ -408,6 +408,7 @@ NSLog(@"[Timing] %@, nowTime = %f", NSStringFromSelector(_cmd), [[NSDate date] t
 {
     if (handlerName.length > 0 && handler)
     {
+        //匿名block需要copy
         _respHandlers[handlerName] = [handler copy];
     }
     else

@@ -10,6 +10,7 @@
 #import "AppHostViewController+Utils.h"
 #import "AHResponseManager.h"
 
+static NSInteger uniqueId = 0;
 @implementation AppHostViewController (Scripts)
 
 - (void)insertData:(NSDictionary *)json intoPageWithVarName:(NSString *)appProperty
@@ -54,7 +55,10 @@
 }
 - (void)fire:(NSString *)actionName param:(NSDictionary *)paramDict callback:(AppHostResponseCallback)callback
 {
-    NSString *uniqueStr = [[AHResponseManager defaultManager] addResponseCallback:callback];
+    NSString *uniqueStr = [NSString stringWithFormat:@"cbk_%zd",uniqueId++];
+    [self registerHandler:uniqueStr handler:^(id data, AppHostResponseCallback responseCallback) {
+        callback(data);
+    }];
     NSMutableDictionary *mDict = [NSMutableDictionary dictionaryWithDictionary:paramDict];
     if (uniqueStr.length > 0)
     {
