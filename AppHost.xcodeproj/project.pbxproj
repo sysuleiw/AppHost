@@ -27,8 +27,6 @@
 		481A0651225C9B9E00DD57BB /* components in Resources */ = {isa = PBXBuildFile; fileRef = 481A064F225C9B9E00DD57BB /* components */; };
 		481A0653225C9BB700DD57BB /* thirdParty in Resources */ = {isa = PBXBuildFile; fileRef = 481A0652225C9BB700DD57BB /* thirdParty */; };
 		481A0655225DC23600DD57BB /* eval.js in Resources */ = {isa = PBXBuildFile; fileRef = 481A0654225DC23600DD57BB /* eval.js */; };
-		481A0659225F15C300DD57BB /* AHJSCoreManager.h in Headers */ = {isa = PBXBuildFile; fileRef = 481A0657225F15C300DD57BB /* AHJSCoreManager.h */; };
-		481A065A225F15C300DD57BB /* AHJSCoreManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 481A0658225F15C300DD57BB /* AHJSCoreManager.m */; };
 		4832C7EE21FB13BA00CD371C /* testcase.tmpl in Resources */ = {isa = PBXBuildFile; fileRef = 4832C7ED21FB13B900CD371C /* testcase.tmpl */; };
 		4837FFC421FA237900D2FE9C /* server.css in Resources */ = {isa = PBXBuildFile; fileRef = 4837FFC121FA237800D2FE9C /* server.css */; };
 		4837FFC521FA237900D2FE9C /* server.js in Resources */ = {isa = PBXBuildFile; fileRef = 4837FFC221FA237800D2FE9C /* server.js */; };
@@ -75,7 +73,6 @@
 		48D888F021D4D031006E4279 /* AHWebViewScrollPositionManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 48D888D021D4D031006E4279 /* AHWebViewScrollPositionManager.m */; };
 		48D888F121D4D031006E4279 /* AHScriptMessageDelegate.h in Headers */ = {isa = PBXBuildFile; fileRef = 48D888D121D4D031006E4279 /* AHScriptMessageDelegate.h */; };
 		48D888F221D4D031006E4279 /* AppHostCookie.h in Headers */ = {isa = PBXBuildFile; fileRef = 48D888D221D4D031006E4279 /* AppHostCookie.h */; };
-		48D888F421D4D031006E4279 /* AppHostProtocol.h in Headers */ = {isa = PBXBuildFile; fileRef = 48D888D421D4D031006E4279 /* AppHostProtocol.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		48D888F521D4D031006E4279 /* AppHostViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 48D888D521D4D031006E4279 /* AppHostViewController.m */; };
 		48D8891921D4D0AD006E4279 /* GCDWebServerFunctions.h in Headers */ = {isa = PBXBuildFile; fileRef = 48D888FB21D4D0AD006E4279 /* GCDWebServerFunctions.h */; };
 		48D8891A21D4D0AD006E4279 /* GCDWebServerPrivate.h in Headers */ = {isa = PBXBuildFile; fileRef = 48D888FC21D4D0AD006E4279 /* GCDWebServerPrivate.h */; };
@@ -121,8 +118,6 @@
 		481A064F225C9B9E00DD57BB /* components */ = {isa = PBXFileReference; lastKnownFileType = folder; path = components; sourceTree = "<group>"; };
 		481A0652225C9BB700DD57BB /* thirdParty */ = {isa = PBXFileReference; lastKnownFileType = folder; path = thirdParty; sourceTree = "<group>"; };
 		481A0654225DC23600DD57BB /* eval.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = eval.js; sourceTree = "<group>"; };
-		481A0657225F15C300DD57BB /* AHJSCoreManager.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AHJSCoreManager.h; sourceTree = "<group>"; };
-		481A0658225F15C300DD57BB /* AHJSCoreManager.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AHJSCoreManager.m; sourceTree = "<group>"; };
 		4832C7ED21FB13B900CD371C /* testcase.tmpl */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = testcase.tmpl; sourceTree = "<group>"; };
 		4837FFC121FA237800D2FE9C /* server.css */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.css; path = server.css; sourceTree = "<group>"; };
 		4837FFC221FA237800D2FE9C /* server.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = server.js; sourceTree = "<group>"; };
@@ -171,7 +166,6 @@
 		48D888D021D4D031006E4279 /* AHWebViewScrollPositionManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AHWebViewScrollPositionManager.m; sourceTree = "<group>"; };
 		48D888D121D4D031006E4279 /* AHScriptMessageDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AHScriptMessageDelegate.h; sourceTree = "<group>"; };
 		48D888D221D4D031006E4279 /* AppHostCookie.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AppHostCookie.h; sourceTree = "<group>"; };
-		48D888D421D4D031006E4279 /* AppHostProtocol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AppHostProtocol.h; sourceTree = "<group>"; };
 		48D888D521D4D031006E4279 /* AppHostViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AppHostViewController.m; sourceTree = "<group>"; };
 		48D888FB21D4D0AD006E4279 /* GCDWebServerFunctions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GCDWebServerFunctions.h; sourceTree = "<group>"; };
 		48D888FC21D4D0AD006E4279 /* GCDWebServerPrivate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GCDWebServerPrivate.h; sourceTree = "<group>"; };
@@ -348,7 +342,6 @@
 			isa = PBXGroup;
 			children = (
 				48C8AEA421D5EFCC00A6B426 /* AppHostEnum.h */,
-				48D888D421D4D031006E4279 /* AppHostProtocol.h */,
 				48D888C521D4D031006E4279 /* AppHostViewController.h */,
 				48D888D521D4D031006E4279 /* AppHostViewController.m */,
 				42CA25203B05C4257AB90D90 /* AppHostCommentStore.h */,
@@ -367,8 +360,6 @@
 				48CE9FBB2253816E00F3F7B7 /* AppHostViewController+Timing.m */,
 				4839FE0021D746BE008EB0DF /* AHSchemeTaskDelegate.h */,
 				4839FDFF21D746BE008EB0DF /* AHSchemeTaskDelegate.m */,
-				481A0657225F15C300DD57BB /* AHJSCoreManager.h */,
-				481A0658225F15C300DD57BB /* AHJSCoreManager.m */,
 				4888F1D42244C91700A933E8 /* Intermediate */,
 				482CD47D21D5CEE8006C1120 /* URLChecker */,
 				48D888CC21D4D031006E4279 /* Helper */,
@@ -460,7 +451,6 @@
 			files = (
 				48C8AEDE21D6293500A6B426 /* AppHostEnum.h in Headers */,
 				48D888AF21D4CF08006E4279 /* AppHost.h in Headers */,
-				48D888F421D4D031006E4279 /* AppHostProtocol.h in Headers */,
 				48D8892821D4D0AD006E4279 /* GCDWebServerDataResponse.h in Headers */,
 				48D888E621D4D031006E4279 /* AppHostViewController.h in Headers */,
 				4839FE0221D746BE008EB0DF /* AHSchemeTaskDelegate.h in Headers */,
@@ -478,7 +468,6 @@
 				48D8892421D4D0AD006E4279 /* GCDWebServerRequest.h in Headers */,
 				48D8892521D4D0AD006E4279 /* GCDWebServerFileResponse.h in Headers */,
 				8415243F21EC578700203C2D /* AHDebugViewController.h in Headers */,
-				481A0659225F15C300DD57BB /* AHJSCoreManager.h in Headers */,
 				48D888EF21D4D031006E4279 /* AHWebViewScrollPositionManager.h in Headers */,
 				48D8892B21D4D0AD006E4279 /* GCDWebServerErrorResponse.h in Headers */,
 				48D8893421D4D0AD006E4279 /* GCDWebServerURLEncodedFormRequest.h in Headers */,
@@ -625,7 +614,6 @@
 				48D8892221D4D0AD006E4279 /* GCDWebServer.m in Sources */,
 				483E884922028FAD00066375 /* HTMLParser.m in Sources */,
 				48551BC22246083C00CAC76C /* AppHostViewController+Dispatch.m in Sources */,
-				481A065A225F15C300DD57BB /* AHJSCoreManager.m in Sources */,
 				48D8892721D4D0AD006E4279 /* GCDWebServerErrorResponse.m in Sources */,
 				48D888ED21D4D031006E4279 /* AHScriptMessageDelegate.m in Sources */,
 				4885E98721D77CAE0036B1C6 /* AHDebugServerManager.m in Sources */,

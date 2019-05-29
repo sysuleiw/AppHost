@@ -7,7 +7,6 @@
 //
 
 #import "AHSchemeTaskDelegate.h"
-#import "AppHostProtocol.h"
 
 @interface AHSchemeTaskDelegate()
 

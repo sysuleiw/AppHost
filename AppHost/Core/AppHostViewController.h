@@ -7,7 +7,6 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "AppHostProtocol.h"
 #import "AHSchemeTaskDelegate.h"
 #import "AppHostEnum.h"
 
@@ -18,14 +17,6 @@ static NSString *kAppHostInvokeResponseEvent = @"kAppHostInvokeResponseEvent";
 
 @class AppHostViewController;
 
-/**
- 监听 Response 里的事件；
- */
-@protocol AppHostViewControllerDelegate <NSObject>
-
-- (void)onResponseEventOccurred:(NSString *)eventName response:(id<AppHostProtocol>)response;
-
-@end
 
 @interface AppHostViewController : UIViewController <WKNavigationDelegate>
 
@@ -75,9 +66,6 @@ static NSString *kAppHostInvokeResponseEvent = @"kAppHostInvokeResponseEvent";
  * 远程调试命令响应函数
  */
 @property (nonatomic, strong, readonly) NSMutableDictionary *remoteDebuggerHandlers;
-// 处理 Response 内部发送的事件，这些事件，除了 h5 关心之外，可能 native 本身也很关心
-@property (nonatomic, weak) id<AppHostViewControllerDelegate> appHostDelegate;
-//核心的函数分发机制。可以继承，
 
 /**
  是否是被presented

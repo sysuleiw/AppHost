@@ -7,10 +7,10 @@
 //
 
 #import "AHRequestMediate.h"
-#import "AppHostProtocol.h"
 #import "HTMLParser.h"
 #import "AHUtil.h"
 #import "AppHostEnum.h"
+#import <UIKit/UIKit.h>
 
 static NSString *kFilePrefix = @"file://";
 @implementation AHRequestMediate

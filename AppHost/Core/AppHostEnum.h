@@ -69,6 +69,17 @@ alpha:alphaValue]
 
 #endif /* AppHostEnum_h */
 
+
+static NSString *const kAppHostURLScheme = @"apphost";
+static NSString *const kAppHostURLProtocal = @"apphost://";
+static NSString *const kAppHostURLImageHost = @"image.apphost.hite.me";
+static NSString *const kAppHostURLScriptHost = @"js.apphost.hite.me";
+static NSString *const kAppHostURLStyleHost = @"css.apphost.hite.me";
+
+#define AppHostURLScriptServer [kAppHostURLProtocal stringByAppendingString:kAppHostURLScriptHost]
+#define AppHostURLStyleServer [kAppHostURLProtocal stringByAppendingString:kAppHostURLStyleHost]
+#define AppHostURLImageServer [kAppHostURLProtocal stringByAppendingString:kAppHostURLImageHost]
+
 #define NOW_TIME [[NSDate date] timeIntervalSince1970] * 1000
 
 // 为了解决 webview Cookie 而需要提前加载的页面
