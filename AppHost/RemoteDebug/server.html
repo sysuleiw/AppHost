@@ -77,15 +77,19 @@
                 </div>
                 <div v-else-if="item.type === 'apropos_item'" class="m-output-doc">
                         <p v-if="item.doc.discuss" class="w-doc-discuss">{{item.doc.discuss}}</p>
-                        <div v-if="item.doc.param" class="w-doc-type_title">参数说明：</div>
+                        <div v-if="item.doc.param" class="w-doc-type_title">请求参数说明：</div>
                         <ul v-if="item.doc.param" class="w-doc-param-container">
                             <template v-for="(field) in item.doc.param">
                                 <li class="w-doc-param" v-for="(desc, name) in field"><span>{{name}}:</span> {{desc}}</li>
                             </template>
                         </ul>
                         <div v-if="item.doc.return" class="w-doc-return">
-                            <span  class="w-doc-type_title">参数说明：</span><br/>
-                            {{item.doc.return}}
+                            <span  class="w-doc-type_title">返回参数说明：</span><br/>
+                            <ul v-if="item.doc.return" class="w-doc-param-container">
+                                <template v-for="(field) in item.doc.return">
+                                <li class="w-doc-param" v-for="(desc, name) in field"><span>{{name}}:</span> {{desc}}</li>
+                                </template>
+                            </ul>
                         </div>
                         <div v-if="item.doc.code" class="w-doc-type_title">代码示例：</div>
                         <div v-if="item.doc.code" class="w-doc-code">{{item.doc.code}}</div>

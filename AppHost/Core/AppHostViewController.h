@@ -115,4 +115,5 @@ static NSString *kAppHostInvokeResponseEvent = @"kAppHostInvokeResponseEvent";
 
 - (void)addRemoteDebuggerCallbackRespHandlerWithName:(NSString *)handlerName handler:(AppHostHandler)callback;
 - (void)removeRemoteDebuggerCallbackHandler:(NSString *)handlerName;
+
 @end

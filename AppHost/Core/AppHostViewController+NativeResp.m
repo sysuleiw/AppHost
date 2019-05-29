@@ -8,18 +8,19 @@
 
 #import "AppHostViewController+NativeResp.h"
 #import "AppHostViewController.h"
-
+#import "AppHostCommentStore.h"
 @import SafariServices;
+
 
 // 保存 weinre 注入脚本的地址，方便在加载其它页面时也能自动注入。
 static NSString *kLastWeinreScript = nil;
+
+@interface AppHostViewController()
+
+@property (nonatomic, strong) AppHostCommentStore *cmtStore;
+@end
 @implementation AppHostViewController (NativeResp)
 
-ah_doc_begin(getDataWithParamCallback, "测试api注册")
-ah_doc_param(text, "text哈哈哈")
-ah_doc_code(window.appHost.invoke("getDataWithParamCallback",{"data":"测试参数"},function(data){}))
-ah_doc_code_expect("在屏幕上出现 '请稍等...'，多次调用此接口，会出现多个")
-ah_doc_end
 -(void)registerAllRespHandlers
 {
     //1.注意这个回调里调用self需要weak,无论是sdk内部还是sdk外部
@@ -31,6 +32,10 @@ ah_doc_end
         responseCallback(@{@"data":@"fromNativeData"});
     }];
 
+    self.cmtStore.addMethodDesc(@"openExternalUrl",@"王磊测试方法说明")
+                 .addMethodParam(@"url",@"要打开的url")
+                 .addMethodReturnValue(@"nothing",@"没有参数");
+    
     [self registerHandler:@"openExternalUrl" handler:^(id data, AppHostResponseCallback responseCallback)
     {
         NSDictionary *paramDict = (NSDictionary *)data;
@@ -99,9 +104,10 @@ ah_doc_end
 - (void)registerAllDebugMethod
 {
 #ifdef AH_DEBUG
+    kWeakSelf(self)
     [self addRemoteDebuggerCallbackRespHandlerWithName:@"eval" handler:^(id data, AppHostResponseCallback responseCallback)
     {
-        [self evalExpression:[data objectForKey:@"code"] completion:^(id  _Nonnull result, NSString * _Nonnull error) {
+        [weakself evalExpression:[data objectForKey:@"code"] completion:^(id  _Nonnull result, NSString * _Nonnull error) {
             AHLog(@"%@, error = %@", result, error);
             NSDictionary *r = nil;
             if (result) {
@@ -113,12 +119,12 @@ ah_doc_end
                       @"error":[NSString stringWithFormat:@"%@", error]
                       };
             }
-            [self fire:@"eval" param:r];
+            [weakself fire:@"eval" param:r];
         }];
     }];
     [self addRemoteDebuggerCallbackRespHandlerWithName:@"list" handler:^(id data, AppHostResponseCallback responseCallback)
     {
-        [self fire:@"list" param:@{@"JSBridge":self.respHandlers.allKeys}];
+        [weakself fire:@"list" param:@{@"JSBridge":weakself.respHandlers.allKeys}];
     }];
 
     [self addRemoteDebuggerCallbackRespHandlerWithName:@"weinre" handler:^(id data, AppHostResponseCallback responseCallback)
@@ -126,20 +132,20 @@ ah_doc_end
         // $ weinre --boundHost 10.242.24.59 --httpPort 9090
         BOOL disabled = [[data objectForKey:@"disabled"] boolValue];
         if (disabled) {
-            [self disableWeinreSupport];
+            [weakself disableWeinreSupport];
         } else {
             kLastWeinreScript = [data objectForKey:@"url"];
-            [self enableWeinreSupport];
+            [weakself enableWeinreSupport];
         }
     }];
     [self addRemoteDebuggerCallbackRespHandlerWithName:@"timing" handler:^(id data, AppHostResponseCallback responseCallback)
     {
         BOOL mobile = [[data objectForKey:@"mobile"] boolValue];
         if (mobile) {
-            [self fire:@"requestToTiming" param:@{}];
+            [weakself fire:@"requestToTiming" param:@{}];
         } else {
-            [self.webView evaluateJavaScript:@"window.performance.timing.toJSON()" completionHandler:^(NSDictionary *_Nullable r, NSError * _Nullable error) {
-                [self fire:@"requestToTiming_on_mac" param:r];
+            [weakself.webView evaluateJavaScript:@"window.performance.timing.toJSON()" completionHandler:^(NSDictionary *_Nullable r, NSError * _Nullable error) {
+                [weakself fire:@"requestToTiming_on_mac" param:r];
             }];
         }
     }];
@@ -152,31 +158,20 @@ ah_doc_end
                 [cookieStorage deleteCookie:cookie completionHandler:nil];
             }];
 
-            [self fire:@"clearCookieDone" param:@{@"count":@(cookies.count)}];
+            [weakself fire:@"clearCookieDone" param:@{@"count":@(cookies.count)}];
         }];
     }];
     [self addRemoteDebuggerCallbackRespHandlerWithName:@"apropos" handler:^(id data, AppHostResponseCallback responseCallback)
     {
-//        NSString *signature = [data objectForKey:@"signature"];
-//        Class appHostCls = [[AHResponseManager defaultManager] responseForActionSignature:signature];
-//        SEL targetMethod = ah_doc_selector(signature);
-//        NSString *funcName = [@"apropos." stringByAppendingString:signature];
-//        if (appHostCls && [appHostCls respondsToSelector:targetMethod]) {
-//#pragma clang diagnostic push
-//#pragma clang diagnostic ignored "-Warc-performSelector-leaks"
-//            NSDictionary *doc = [appHostCls performSelector:targetMethod withObject:nil];
-//#pragma clang diagnostic pop
-//
-//            [self fire:funcName param:doc];
-//        } else {
-//            NSString *err = nil;
-//            if (appHostCls) {
-//                err = [NSString stringWithFormat:@"The doc of method (%@) is not found!", signature];
-//            } else {
-//                err = [NSString stringWithFormat:@"The method (%@) doesn't exsit!", signature];
-//            }
-//            [self fire:funcName param:@{@"error":err}];
-//        }
+        NSString *signature = [data objectForKey:@"signature"];
+        NSString *funcName = [@"apropos." stringByAppendingString:signature];
+        NSDictionary *doc = [weakself.cmtStore getFuncCommentWithName:signature];
+        if (doc) {
+            [weakself fire:funcName param:doc];
+        } else {
+            NSString *err = [NSString stringWithFormat:@"The method (%@) doesn't exsit!", signature];
+            [weakself fire:funcName param:@{@"error":err}];
+        }
     }];
 
 #endif

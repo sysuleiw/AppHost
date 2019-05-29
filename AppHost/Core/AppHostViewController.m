@@ -21,12 +21,14 @@
 #import "AppHostViewController+Progressor.h"
 #import "AppHostViewController+Timing.h"
 #import "AppHostViewController+NativeResp.h"
+#import "AppHostCommentStore.h"
 @interface AppHostViewController () <UIScrollViewDelegate, WKUIDelegate, WKScriptMessageHandler>
 
 @property (nonatomic, strong) WKWebView *webView;
 
 @property (nonatomic, strong) AHSchemeTaskDelegate *taskDelegate;
 
+@property (nonatomic, strong) AppHostCommentStore *cmtStore;
 @end
 
 static NSString *const kAHScriptHandlerName = @"kAHScriptHandlerName";
@@ -57,6 +59,7 @@ BOOL kGCDWebServer_logging_enabled = YES;
         _respHandlers = [NSMutableDictionary new];
         _remoteDebuggerHandlers = [NSMutableDictionary new];
         _nativeToWebCallbackHandlers = [NSMutableDictionary new];
+        _cmtStore = [AppHostCommentStore new];
         [self.view addSubview:self.webView];
         [self registerAllRespHandlers];
     }

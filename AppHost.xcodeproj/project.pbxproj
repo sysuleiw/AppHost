@@ -21,14 +21,14 @@
 /* End PBXAggregateTarget section */
 
 /* Begin PBXBuildFile section */
+		42CA270996750D7EABB539A3 /* AppHostCommentStore.h in Headers */ = {isa = PBXBuildFile; fileRef = 42CA25203B05C4257AB90D90 /* AppHostCommentStore.h */; };
+		42CA28B47378081FDE302620 /* AppHostCommentStore.m in Sources */ = {isa = PBXBuildFile; fileRef = 42CA2500657DE0BF9C57027E /* AppHostCommentStore.m */; };
 		481A0650225C9B9E00DD57BB /* images in Resources */ = {isa = PBXBuildFile; fileRef = 481A064E225C9B9E00DD57BB /* images */; };
 		481A0651225C9B9E00DD57BB /* components in Resources */ = {isa = PBXBuildFile; fileRef = 481A064F225C9B9E00DD57BB /* components */; };
 		481A0653225C9BB700DD57BB /* thirdParty in Resources */ = {isa = PBXBuildFile; fileRef = 481A0652225C9BB700DD57BB /* thirdParty */; };
 		481A0655225DC23600DD57BB /* eval.js in Resources */ = {isa = PBXBuildFile; fileRef = 481A0654225DC23600DD57BB /* eval.js */; };
 		481A0659225F15C300DD57BB /* AHJSCoreManager.h in Headers */ = {isa = PBXBuildFile; fileRef = 481A0657225F15C300DD57BB /* AHJSCoreManager.h */; };
 		481A065A225F15C300DD57BB /* AHJSCoreManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 481A0658225F15C300DD57BB /* AHJSCoreManager.m */; };
-		481A06E22265C37600DD57BB /* AppHostViewController+Extend.h in Headers */ = {isa = PBXBuildFile; fileRef = 481A06E02265C37600DD57BB /* AppHostViewController+Extend.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		481A06E32265C37600DD57BB /* AppHostViewController+Extend.m in Sources */ = {isa = PBXBuildFile; fileRef = 481A06E12265C37600DD57BB /* AppHostViewController+Extend.m */; };
 		4832C7EE21FB13BA00CD371C /* testcase.tmpl in Resources */ = {isa = PBXBuildFile; fileRef = 4832C7ED21FB13B900CD371C /* testcase.tmpl */; };
 		4837FFC421FA237900D2FE9C /* server.css in Resources */ = {isa = PBXBuildFile; fileRef = 4837FFC121FA237800D2FE9C /* server.css */; };
 		4837FFC521FA237900D2FE9C /* server.js in Resources */ = {isa = PBXBuildFile; fileRef = 4837FFC221FA237800D2FE9C /* server.js */; };
@@ -115,14 +115,14 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		42CA2500657DE0BF9C57027E /* AppHostCommentStore.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AppHostCommentStore.m; sourceTree = "<group>"; };
+		42CA25203B05C4257AB90D90 /* AppHostCommentStore.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AppHostCommentStore.h; sourceTree = "<group>"; };
 		481A064E225C9B9E00DD57BB /* images */ = {isa = PBXFileReference; lastKnownFileType = folder; path = images; sourceTree = "<group>"; };
 		481A064F225C9B9E00DD57BB /* components */ = {isa = PBXFileReference; lastKnownFileType = folder; path = components; sourceTree = "<group>"; };
 		481A0652225C9BB700DD57BB /* thirdParty */ = {isa = PBXFileReference; lastKnownFileType = folder; path = thirdParty; sourceTree = "<group>"; };
 		481A0654225DC23600DD57BB /* eval.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = eval.js; sourceTree = "<group>"; };
 		481A0657225F15C300DD57BB /* AHJSCoreManager.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AHJSCoreManager.h; sourceTree = "<group>"; };
 		481A0658225F15C300DD57BB /* AHJSCoreManager.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AHJSCoreManager.m; sourceTree = "<group>"; };
-		481A06E02265C37600DD57BB /* AppHostViewController+Extend.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "AppHostViewController+Extend.h"; sourceTree = "<group>"; };
-		481A06E12265C37600DD57BB /* AppHostViewController+Extend.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "AppHostViewController+Extend.m"; sourceTree = "<group>"; };
 		4832C7ED21FB13B900CD371C /* testcase.tmpl */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = testcase.tmpl; sourceTree = "<group>"; };
 		4837FFC121FA237800D2FE9C /* server.css */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.css; path = server.css; sourceTree = "<group>"; };
 		4837FFC221FA237800D2FE9C /* server.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = server.js; sourceTree = "<group>"; };
@@ -351,10 +351,10 @@
 				48D888D421D4D031006E4279 /* AppHostProtocol.h */,
 				48D888C521D4D031006E4279 /* AppHostViewController.h */,
 				48D888D521D4D031006E4279 /* AppHostViewController.m */,
+				42CA25203B05C4257AB90D90 /* AppHostCommentStore.h */,
+				42CA2500657DE0BF9C57027E /* AppHostCommentStore.m */,
 				9B2D51442297DEF500925DBD /* AppHostViewController+NativeResp.h */,
 				9B2D51452297DEF500925DBD /* AppHostViewController+NativeResp.m */,
-				481A06E02265C37600DD57BB /* AppHostViewController+Extend.h */,
-				481A06E12265C37600DD57BB /* AppHostViewController+Extend.m */,
 				48551BC822461C5700CAC76C /* AppHostViewController+Progressor.h */,
 				48551BC922461C5700CAC76C /* AppHostViewController+Progressor.m */,
 				48551BB72245E2BA00CAC76C /* AppHostViewController+Scripts.h */,
@@ -468,7 +468,6 @@
 				4888F1D72244CA2900A933E8 /* AHRequestMediate.h in Headers */,
 				48551BC12246083C00CAC76C /* AppHostViewController+Dispatch.h in Headers */,
 				48551BB92245E2BA00CAC76C /* AppHostViewController+Scripts.h in Headers */,
-				481A06E22265C37600DD57BB /* AppHostViewController+Extend.h in Headers */,
 				48D888F221D4D031006E4279 /* AppHostCookie.h in Headers */,
 				9B2D51462297DEF500925DBD /* AppHostViewController+NativeResp.h in Headers */,
 				48551BCA22461C5700CAC76C /* AppHostViewController+Progressor.h in Headers */,
@@ -497,6 +496,7 @@
 				48D8891C21D4D0AD006E4279 /* GCDWebServerConnection.h in Headers */,
 				48D8892D21D4D0AD006E4279 /* GCDWebServerDataRequest.h in Headers */,
 				48D888D721D4D031006E4279 /* AHAppWhiteListParser.h in Headers */,
+				42CA270996750D7EABB539A3 /* AppHostCommentStore.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -610,7 +610,6 @@
 				483E884C22028FAD00066375 /* HTMLNode.m in Sources */,
 				9B2D51472297DEF500925DBD /* AppHostViewController+NativeResp.m in Sources */,
 				48D8892C21D4D0AD006E4279 /* GCDWebServerStreamedResponse.m in Sources */,
-				481A06E32265C37600DD57BB /* AppHostViewController+Extend.m in Sources */,
 				48D888F021D4D031006E4279 /* AHWebViewScrollPositionManager.m in Sources */,
 				48D8893021D4D0AD006E4279 /* GCDWebServerURLEncodedFormRequest.m in Sources */,
 				48B00FF521D4DA6E0037FABF /* Reachability.m in Sources */,
@@ -642,6 +641,7 @@
 				48D888EB21D4D031006E4279 /* AHAppWhiteListParser.m in Sources */,
 				4888F1D82244CA2900A933E8 /* AHRequestMediate.m in Sources */,
 				48CE9FBD2253816E00F3F7B7 /* AppHostViewController+Timing.m in Sources */,
+				42CA28B47378081FDE302620 /* AppHostCommentStore.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

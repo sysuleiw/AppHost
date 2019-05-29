@@ -21,6 +21,9 @@
 #endif
 #endif
 
+//弱引用/强引用
+#define kWeakSelf(type)   __weak typeof(type) weak##type = type;
+#define kStrongSelf(type) __strong typeof(type) type = weak##type;
 //获取设备的物理高度
 #define AH_SCREEN_HEIGHT [UIScreen mainScreen].bounds.size.height
 //获取设备的物理宽度
@@ -63,30 +66,6 @@ alpha:alphaValue]
 #define ah_doc_selector(name) NSSelectorFromString([NSString stringWithFormat:@"%@%@", ah_doc_log_prefix, name])
 // 定义 oc-doc，为自动化生成测试代码和自动化注释做准备
 // 凡是可能多行的文字描述都用 @result,传入的数据需要有双引号，而不是@#result
-
-#define ah_doc_begin(signature, desc) +(NSDictionary *)ah_concat(ah_doc_for_, signature)\
-{\
-NSMutableArray *lst = [NSMutableArray arrayWithCapacity:3];\
-NSMutableDictionary *docs = [@{\
-@"name":@#signature,\
-@"discuss":@desc\
-} mutableCopy];
-#define ah_doc_code(code) [docs setObject:@#code forKey:@"code"];
-
-#define ah_doc_code_expect(result) [docs setObject:@result forKey:@"expect"];
-#define ah_doc_code_expectFunc(result) [docs setObject:@result forKey:@"expectFunc"];
-#define ah_doc_code_autoTest(result) [docs setObject:@result forKey:@"autoTest"];
-
-#define ah_doc_param(field, desc) [lst addObject:@{@#field:@desc}];
-
-#define ah_doc_return(type, desc) [docs setObject:@{@#type:@desc} forKey:@"return"];
-
-#define ah_doc_end if(lst.count > 0){\
-        [docs setObject:lst forKey:@"param"];\
-    }\
-    return docs;\
-}
-// oc-doc 结束
 
 #endif /* AppHostEnum_h */
 
