@@ -10,9 +10,9 @@
 #import "GCDWebServer.h"
 #import "GCDWebServerDataResponse.h"
 #import "AppHostViewController.h"
+#import "AppHostViewController+Scripts.h"
 #import "GCDWebServerURLEncodedFormRequest.h"
 #import "AHDebugViewController.h"
-#import "AHDebugResponse.h"
 #import "AppHostViewController+Dispatch.h"
 
 @interface AHDebugServerManager () <AHDebugViewDelegate>
@@ -59,8 +59,9 @@ static off_t _log_offset = 0;
 
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(requestEventOccur:) name:kAppHostInvokeRequestEvent object:nil];
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(responseEventOccur:) name:kAppHostInvokeResponseEvent object:nil];
-        
-        [AHDebugResponse setupDebugger];
+
+        //todo:兼容debugger
+        [self setupDebugger];
     }
     return self;
 }
@@ -401,5 +402,56 @@ CGFloat kDebugWinInitHeight = 46.f;
 - (void)stop
 {
     [_webServer stop];
+}
+
+- (void)setupDebugger
+{
+#ifdef AH_DEBUG
+    NSBundle *bundle = [NSBundle bundleForClass:AppHostViewController.class];
+    NSMutableArray *scripts = [NSMutableArray arrayWithObjects:
+                         @{// 记录 window.DocumentEnd 的时间
+                             @"code": @"window.DocumentEnd =(new Date()).getTime()",
+                             @"when": @(WKUserScriptInjectionTimeAtDocumentEnd),
+                             @"key": @"documentEndTime.js"
+                             },
+                         @{// 记录 DocumentStart 的时间
+                             @"code": @"window.DocumentStart = (new Date()).getTime()",
+                             @"when": @(WKUserScriptInjectionTimeAtDocumentStart),
+                             @"key": @"documentStartTime.js"
+                             },
+                           @{// 重写 console.log 方法
+                             @"code": @"window.__ah_consolelog = console.log; console.log = function(_msg){window.__ah_consolelog(_msg);appHost.invoke('console.log', {'text':_msg})}",
+                             @"when": @(WKUserScriptInjectionTimeAtDocumentStart),
+                             @"key": @"console.log.js"
+                             },
+                         @{// 记录 readystatechange 的时间
+                             @"code": @"document.addEventListener('readystatechange', function (event) {window['readystate_' + document.readyState] = (new Date()).getTime();});",
+                             @"when": @(WKUserScriptInjectionTimeAtDocumentStart),
+                             @"key": @"readystatechange.js"
+                             },nil
+                         ];
+
+    NSURL *profile = [[bundle bundleURL] URLByAppendingPathComponent:@"/profile/profiler.js"];
+    NSString *profileTxt = [NSString stringWithContentsOfURL:profile encoding:NSUTF8StringEncoding error:nil];
+    // profile
+    [scripts addObject:@{
+                         @"code": profileTxt,
+                         @"when": @(WKUserScriptInjectionTimeAtDocumentEnd),
+                         @"key": @"profile.js"
+                         }];
+
+    NSURL *timing = [[bundle bundleURL] URLByAppendingPathComponent:@"/profile/pageTiming.js"];
+    NSString *timingTxt = [NSString stringWithContentsOfURL:timing encoding:NSUTF8StringEncoding error:nil];
+    // timing
+    [scripts addObject:@{
+                         @"code": timingTxt,
+                         @"when": @(WKUserScriptInjectionTimeAtDocumentEnd),
+                         @"key": @"timing.js"
+                         }];
+
+    [scripts enumerateObjectsUsingBlock:^(NSDictionary  * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+        [AppHostViewController prepareJavaScript:[obj objectForKey:@"code"] when:[[obj objectForKey:@"when"] integerValue] key:[obj objectForKey:@"key"]];
+    }];
+#endif
 }
 @end

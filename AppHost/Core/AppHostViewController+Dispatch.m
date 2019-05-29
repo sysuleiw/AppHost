@@ -9,7 +9,6 @@
 #import "AppHostViewController+Dispatch.h"
 #import "AppHostViewController+Scripts.h"
 #import "AppHostViewController+Utils.h"
-#import "AHResponseManager.h"
 
 @implementation AppHostViewController (Dispatch)
 
@@ -42,6 +41,18 @@
 - (BOOL)callNative:(NSString *)action parameter:(NSDictionary *)paramDict callbackKey:(NSString *)key
 {
     AppHostHandler handler = (AppHostHandler)[self.respHandlers objectForKey:action];
+    if (!handler)
+    {
+        //是NativeToWeb的回调
+        handler = (AppHostHandler)[self.nativeToWebCallbackHandlers objectForKey:action];
+    }
+
+    if (!handler)
+    {
+        //是NativeToWeb的回调
+        handler = (AppHostHandler)[self.remoteDebuggerHandlers objectForKey:action];
+    }
+
     AppHostResponseCallback calback = NULL;
     if (key.length > 0)
     {

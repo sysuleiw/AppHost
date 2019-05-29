@@ -9,7 +9,6 @@
 #import "AppHostViewController+Utils.h"
 #import "AppHostViewController+Dispatch.h"
 #import "AHWebViewScrollPositionManager.h"
-#import "AHResponseManager.h"
 
 @implementation AppHostViewController (Utils)
 
@@ -19,16 +18,10 @@
     //人肉维护支持列表；
     NSMutableDictionary *supportedFunctions = [@{
                                                  //增加apphost的supportTypeFunction
-                                                 @"pageshow" : @"2",
-                                                 @"pagehide" : @"2"
+                                                 @"getDataWithParamCallback" : @"2",
+                                                 @"openExternalUrl" : @"2"
                                                  } mutableCopy];
-    // 内置接口
-    // 各个response 的 supportFunction
-    [[AHResponseManager defaultManager].customResponseClasses enumerateObjectsUsingBlock:^(Class resp, NSUInteger idx, BOOL * _Nonnull stop) {
-        [supportedFunctions addEntriesFromDictionary:[resp supportActionList]];
-    }];
-    
-    
+
     NSMutableDictionary *lst = [NSMutableDictionary dictionaryWithCapacity:10];
     [lst setObject:supportedFunctions forKey:@"supportFunctionType"];
     

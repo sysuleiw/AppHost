@@ -8,7 +8,6 @@
 
 #import "AppHostViewController+Scripts.h"
 #import "AppHostViewController+Utils.h"
-#import "AHResponseManager.h"
 
 static NSInteger uniqueId = 0;
 @implementation AppHostViewController (Scripts)
@@ -55,8 +54,9 @@ static NSInteger uniqueId = 0;
 }
 - (void)fire:(NSString *)actionName param:(NSDictionary *)paramDict callback:(AppHostResponseCallback)callback
 {
-    NSString *uniqueStr = [NSString stringWithFormat:@"cbk_%zd",uniqueId++];
-    [self registerHandler:uniqueStr handler:^(id data, AppHostResponseCallback responseCallback) {
+    NSString *uniqueStr = [NSString stringWithFormat:@"%@%zd", kNativeToWebCallbackKey, uniqueId++];
+    [self addNativeCallbackRespHandlerWithName:uniqueStr handler:^(id data, AppHostResponseCallback responseCallback)
+    {
         callback(data);
     }];
     NSMutableDictionary *mDict = [NSMutableDictionary dictionaryWithDictionary:paramDict];

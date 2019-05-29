@@ -107,3 +107,5 @@ static NSString * _Nonnull kAppHostEventDismissalFromPresented = @"kAppHostEvent
 static NSString * _Nonnull kAHActionKey = @"action";
 static NSString * _Nonnull kAHParamKey = @"param";
 static NSString * _Nonnull kAHCallbackKey = @"callbackKey";
+
+static NSString * _Nonnull kNativeToWebCallbackKey = @"cbk_";

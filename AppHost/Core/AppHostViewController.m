@@ -11,12 +11,9 @@
 #import "AppHostViewController.h"
 #import "Reachability.h"
 #import "AHWebViewScrollPositionManager.h"
-#import "AHNavigationBarResponse.h"
-#import "AHAppLoggerResponse.h"
 #import "AppHostCookie.h"
 #import "AHScriptMessageDelegate.h"
 #import "AHURLChecker.h"
-#import "AHResponseManager.h"
 #import "AHRequestMediate.h"
 #import "AppHostViewController+Utils.h"
 #import "AppHostViewController+Scripts.h"
@@ -58,6 +55,8 @@ BOOL kGCDWebServer_logging_enabled = YES;
         // 注意：此时还没有 navigationController。
         self.taskDelegate = [AHSchemeTaskDelegate new];
         _respHandlers = [NSMutableDictionary new];
+        _remoteDebuggerHandlers = [NSMutableDictionary new];
+        _nativeToWebCallbackHandlers = [NSMutableDictionary new];
         [self.view addSubview:self.webView];
         [self registerAllRespHandlers];
     }
@@ -422,6 +421,54 @@ NSLog(@"[Timing] %@, nowTime = %f", NSStringFromSelector(_cmd), [[NSDate date] t
     if (handlerName.length > 0)
     {
         [_respHandlers removeObjectForKey:handlerName];
+    }
+    else
+    {
+        NSAssert(NO, @"信息无效!");
+    }
+}
+
+- (void)addNativeCallbackRespHandlerWithName:(NSString *)handlerName handler:(AppHostHandler)callback
+{
+    if (handlerName.length > 0 && callback)
+    {
+        //匿名block需要copy
+        _nativeToWebCallbackHandlers[handlerName] = [callback copy];
+    }
+    else
+    {
+        NSAssert(NO, @"注册信息无效!");
+    }
+}
+- (void)removeNativeCallbackHandler:(NSString *)handlerName
+{
+    if (handlerName.length > 0)
+    {
+        [_nativeToWebCallbackHandlers removeObjectForKey:handlerName];
+    }
+    else
+    {
+        NSAssert(NO, @"信息无效!");
+    }
+}
+
+- (void)addRemoteDebuggerCallbackRespHandlerWithName:(NSString *)handlerName handler:(AppHostHandler)callback
+{
+    if (handlerName.length > 0 && callback)
+    {
+        //匿名block需要copy
+        _remoteDebuggerHandlers[handlerName] = [callback copy];
+    }
+    else
+    {
+        NSAssert(NO, @"注册信息无效!");
+    }
+}
+- (void)removeRemoteDebuggerCallbackHandler:(NSString *)handlerName
+{
+    if (handlerName.length > 0)
+    {
+        [_remoteDebuggerHandlers removeObjectForKey:handlerName];
     }
     else
     {
