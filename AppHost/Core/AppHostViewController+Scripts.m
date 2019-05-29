@@ -55,7 +55,7 @@ static NSInteger uniqueId = 0;
 - (void)fire:(NSString *)actionName param:(NSDictionary *)paramDict callback:(AppHostResponseCallback)callback
 {
     NSString *uniqueStr = [NSString stringWithFormat:@"%@%zd", kNativeToWebCallbackKey, uniqueId++];
-    [self addNativeCallbackRespHandlerWithName:uniqueStr handler:^(id data, AppHostResponseCallback responseCallback)
+    [[AppHostResponseManager sharedManager] addNativeCallbackRespHandlerWithName:uniqueStr handler:^(id data, AppHostResponseCallback responseCallback)
     {
         callback(data);
     }];

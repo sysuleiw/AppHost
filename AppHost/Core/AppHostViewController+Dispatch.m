@@ -9,7 +9,7 @@
 #import "AppHostViewController+Dispatch.h"
 #import "AppHostViewController+Scripts.h"
 #import "AppHostViewController+Utils.h"
-
+#import "AppHostResponseManager.h"
 @implementation AppHostViewController (Dispatch)
 
 #pragma mark - core
@@ -40,17 +40,21 @@
 #pragma mark - private
 - (BOOL)callNative:(NSString *)action parameter:(NSDictionary *)paramDict callbackKey:(NSString *)key
 {
-    AppHostHandler handler = (AppHostHandler)[self.respHandlers objectForKey:action];
+    AppHostHandler handler = (AppHostHandler)[[AppHostResponseManager sharedManager].respHandlers objectForKey:action];
     if (!handler)
     {
         //是NativeToWeb的回调
-        handler = (AppHostHandler)[self.nativeToWebCallbackHandlers objectForKey:action];
+        handler = (AppHostHandler)[[AppHostResponseManager sharedManager].nativeToWebCallbackHandlers objectForKey:action];
+        if (handler)
+        {
+            [[AppHostResponseManager sharedManager] removeNativeCallbackHandler:action];
+        }
     }
 
     if (!handler)
     {
-        //是NativeToWeb的回调
-        handler = (AppHostHandler)[self.remoteDebuggerHandlers objectForKey:action];
+        //是内置命令
+        handler = (AppHostHandler)[[AppHostResponseManager sharedManager].remoteDebuggerHandlers objectForKey:action];
     }
 
     AppHostResponseCallback calback = NULL;

@@ -9,9 +9,7 @@
 #import <UIKit/UIKit.h>
 #import "AHSchemeTaskDelegate.h"
 #import "AppHostEnum.h"
-
-typedef void (^AppHostResponseCallback)(id responseData);
-typedef void (^AppHostHandler)(id data, AppHostResponseCallback responseCallback);
+#import "AppHostResponseManager.h"
 static NSString *kAppHostInvokeRequestEvent = @"kAppHostInvokeRequestEvent";
 static NSString *kAppHostInvokeResponseEvent = @"kAppHostInvokeResponseEvent";
 
@@ -52,20 +50,7 @@ static NSString *kAppHostInvokeResponseEvent = @"kAppHostInvokeResponseEvent";
  */
 @property (nonatomic, strong) NSDictionary *backPageParameter;
 
-/**
- * 自定义js方法列表
- */
-@property (nonatomic, strong, readonly) NSMutableDictionary *respHandlers;
 
-/**
- * native 调用页面js的回调集合
- */
-@property (nonatomic, strong, readonly) NSMutableDictionary *nativeToWebCallbackHandlers;
-
-/**
- * 远程调试命令响应函数
- */
-@property (nonatomic, strong, readonly) NSMutableDictionary *remoteDebuggerHandlers;
 
 /**
  是否是被presented
@@ -94,14 +79,6 @@ static NSString *kAppHostInvokeResponseEvent = @"kAppHostInvokeResponseEvent";
 - (void)loadIndexFile:(NSString *)fileName inDirectory:(NSURL *)directory domain:(NSString *)baseDomain;
 
 
-- (void)registerHandler:(NSString *)handlerName handler:(AppHostHandler)handler;
-- (void)removeHandler:(NSString *)handlerName;
 
-- (void)addNativeCallbackRespHandlerWithName:(NSString *)handlerName handler:(AppHostHandler)callback;
-- (void)removeNativeCallbackHandler:(NSString *)handlerName;
-
-
-- (void)addRemoteDebuggerCallbackRespHandlerWithName:(NSString *)handlerName handler:(AppHostHandler)callback;
-- (void)removeRemoteDebuggerCallbackHandler:(NSString *)handlerName;
 
 @end

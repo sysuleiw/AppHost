@@ -99,3 +99,6 @@ static NSString * _Nonnull kAHParamKey = @"param";
 static NSString * _Nonnull kAHCallbackKey = @"callbackKey";
 
 static NSString * _Nonnull kNativeToWebCallbackKey = @"cbk_";
+
+typedef void (^AppHostResponseCallback)(id responseData);
+typedef void (^AppHostHandler)(id data, AppHostResponseCallback responseCallback);

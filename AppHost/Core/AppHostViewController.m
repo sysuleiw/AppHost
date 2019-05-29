@@ -20,15 +20,12 @@
 #import "AppHostViewController+Dispatch.h"
 #import "AppHostViewController+Progressor.h"
 #import "AppHostViewController+Timing.h"
-#import "AppHostViewController+NativeResp.h"
-#import "AppHostCommentStore.h"
 @interface AppHostViewController () <UIScrollViewDelegate, WKUIDelegate, WKScriptMessageHandler>
 
 @property (nonatomic, strong) WKWebView *webView;
 
 @property (nonatomic, strong) AHSchemeTaskDelegate *taskDelegate;
 
-@property (nonatomic, strong) AppHostCommentStore *cmtStore;
 @end
 
 static NSString *const kAHScriptHandlerName = @"kAHScriptHandlerName";
@@ -56,12 +53,8 @@ BOOL kGCDWebServer_logging_enabled = YES;
     if (self) {
         // 注意：此时还没有 navigationController。
         self.taskDelegate = [AHSchemeTaskDelegate new];
-        _respHandlers = [NSMutableDictionary new];
-        _remoteDebuggerHandlers = [NSMutableDictionary new];
-        _nativeToWebCallbackHandlers = [NSMutableDictionary new];
-        _cmtStore = [AppHostCommentStore new];
         [self.view addSubview:self.webView];
-        [self registerAllRespHandlers];
+        [[AppHostResponseManager sharedManager] setWebviewVC:self];
     }
     return self;
 }
@@ -101,10 +94,6 @@ BOOL kGCDWebServer_logging_enabled = YES;
     [self setupProgressor];
 }
 
-+ (BOOL)accessInstanceVariablesDirectly
-{
-    return NO;
-}
 - (void)setUrl:(NSString *)url
 {
     _url = url;
@@ -405,77 +394,5 @@ NSLog(@"[Timing] %@, nowTime = %f", NSStringFromSelector(_cmd), [[NSDate date] t
     return self.navBarStyle;
 }
 
-#pragma mark - respHandlers
-- (void)registerHandler:(NSString *)handlerName handler:(AppHostHandler)handler
-{
-    if (handlerName.length > 0 && handler)
-    {
-        //匿名block需要copy
-        _respHandlers[handlerName] = [handler copy];
-    }
-    else
-    {
-        NSAssert(NO, @"注册信息无效!");
-    }
-}
 
-- (void)removeHandler:(NSString *)handlerName
-{
-    if (handlerName.length > 0)
-    {
-        [_respHandlers removeObjectForKey:handlerName];
-    }
-    else
-    {
-        NSAssert(NO, @"信息无效!");
-    }
-}
-
-- (void)addNativeCallbackRespHandlerWithName:(NSString *)handlerName handler:(AppHostHandler)callback
-{
-    if (handlerName.length > 0 && callback)
-    {
-        //匿名block需要copy
-        _nativeToWebCallbackHandlers[handlerName] = [callback copy];
-    }
-    else
-    {
-        NSAssert(NO, @"注册信息无效!");
-    }
-}
-- (void)removeNativeCallbackHandler:(NSString *)handlerName
-{
-    if (handlerName.length > 0)
-    {
-        [_nativeToWebCallbackHandlers removeObjectForKey:handlerName];
-    }
-    else
-    {
-        NSAssert(NO, @"信息无效!");
-    }
-}
-
-- (void)addRemoteDebuggerCallbackRespHandlerWithName:(NSString *)handlerName handler:(AppHostHandler)callback
-{
-    if (handlerName.length > 0 && callback)
-    {
-        //匿名block需要copy
-        _remoteDebuggerHandlers[handlerName] = [callback copy];
-    }
-    else
-    {
-        NSAssert(NO, @"注册信息无效!");
-    }
-}
-- (void)removeRemoteDebuggerCallbackHandler:(NSString *)handlerName
-{
-    if (handlerName.length > 0)
-    {
-        [_remoteDebuggerHandlers removeObjectForKey:handlerName];
-    }
-    else
-    {
-        NSAssert(NO, @"信息无效!");
-    }
-}
 @end
