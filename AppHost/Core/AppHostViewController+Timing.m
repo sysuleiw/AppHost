@@ -8,6 +8,7 @@
 
 #import "AppHostViewController+Timing.h"
 #import <objc/runtime.h>
+#import "AppHostEnum.h"
 
 @implementation AppHostViewController (Timing)
 

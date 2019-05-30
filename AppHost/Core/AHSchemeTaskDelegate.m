@@ -7,7 +7,7 @@
 //
 
 #import "AHSchemeTaskDelegate.h"
-
+#import "AppHostEnum.h"
 @interface AHSchemeTaskDelegate()
 
 /**
@@ -48,7 +48,6 @@
 - (void)webView:(WKWebView *)webView startURLSchemeTask:(nonnull id<WKURLSchemeTask>)urlSchemeTask
 {
     NSURLRequest *request = urlSchemeTask.request;
-    NSString *path = [request.URL path];
     AHLog(@"URL = %@, allKey = %@", request.URL, [request.allHTTPHeaderFields allKeys]);
     NSData *data;
     NSString *host = [request.URL host];
@@ -61,32 +60,6 @@
     bSchemeTaskHandler handle = [self.customHandles objectForKey:host];
     if (handle) {
         data = handle(webView, urlSchemeTask, &mime);
-    }
-    
-    // 上面没有处理，使用默认逻辑
-    if (data == nil) {
-        if ([host isEqualToString:kAppHostURLScriptHost]) {
-            NSURL *url = [NSURL fileURLWithPath:path];
-            data = [NSData dataWithContentsOfURL:url];
-            mime = @"application/javascript";
-            if (!data) {
-                AHLog(@"Read script file error. The path is %@", url);
-            }
-        } else if ([host isEqualToString:kAppHostURLStyleHost]) {
-            NSURL *url = [NSURL fileURLWithPath:path];
-            data = [NSData dataWithContentsOfURL:url];
-            mime = @"text/css";
-            if (!data) {
-                AHLog(@"Read style file error. The path is %@", url);
-            }
-        } else if ([host isEqualToString:kAppHostURLImageHost]) {
-            NSURL *imageURL = [NSURL fileURLWithPath:path];
-            data = [NSData dataWithContentsOfURL:imageURL];
-            mime = @"image/png";
-            if (!data) {
-                AHLog(@"Read image file error. The path is %@", imageURL);
-            }
-        }
     }
     
     if (data == nil) {

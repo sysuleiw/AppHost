@@ -10,6 +10,7 @@
 #import "AppHostViewController+Scripts.h"
 #import "AppHostViewController+Utils.h"
 #import "AppHostResponseManager.h"
+#import "AppHostEnum.h"
 @implementation AppHostViewController (Dispatch)
 
 #pragma mark - core

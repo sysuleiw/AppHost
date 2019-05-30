@@ -3,7 +3,6 @@
 // Copyright (c) 2019 liang. All rights reserved.
 //
 
-#import <CloudKit/CloudKit.h>
 #import "AppHostResponseManager.h"
 #import "AppHostResponseManager+BuildInResponse.h"
 #import "AppHostResponseManager+RemoteDebugCmd.h"

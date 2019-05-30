@@ -13,6 +13,14 @@
 #import <UIKit/UIKit.h>
 
 static NSString *kFilePrefix = @"file://";
+static NSString *const kAppHostURLProtocal = @"apphost://";
+static NSString *const kAppHostURLImageHost = @"image.apphost.hite.me";
+static NSString *const kAppHostURLScriptHost = @"js.apphost.hite.me";
+static NSString *const kAppHostURLStyleHost = @"css.apphost.hite.me";
+
+#define AppHostURLScriptServer [kAppHostURLProtocal stringByAppendingString:kAppHostURLScriptHost]
+#define AppHostURLStyleServer [kAppHostURLProtocal stringByAppendingString:kAppHostURLStyleHost]
+#define AppHostURLImageServer [kAppHostURLProtocal stringByAppendingString:kAppHostURLImageHost]
 @implementation AHRequestMediate
 
 + (int)interMediateFile:(NSString *)fileName inDirectory:(NSURL *)directory domain:(NSString *)domain output:(NSString *_Nonnull*_Nonnull)output

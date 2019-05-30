@@ -44,9 +44,9 @@
 		483E884B22028FAD00066375 /* HTMLParser.h in Headers */ = {isa = PBXBuildFile; fileRef = 483E884722028FAD00066375 /* HTMLParser.h */; };
 		483E884C22028FAD00066375 /* HTMLNode.m in Sources */ = {isa = PBXBuildFile; fileRef = 483E884822028FAD00066375 /* HTMLNode.m */; };
 		483E884F22028FD500066375 /* libxml2.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 483E884E22028FD500066375 /* libxml2.tbd */; };
-		48551BB92245E2BA00CAC76C /* AppHostViewController+Scripts.h in Headers */ = {isa = PBXBuildFile; fileRef = 48551BB72245E2BA00CAC76C /* AppHostViewController+Scripts.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		48551BB92245E2BA00CAC76C /* AppHostViewController+Scripts.h in Headers */ = {isa = PBXBuildFile; fileRef = 48551BB72245E2BA00CAC76C /* AppHostViewController+Scripts.h */; };
 		48551BBA2245E2BA00CAC76C /* AppHostViewController+Scripts.m in Sources */ = {isa = PBXBuildFile; fileRef = 48551BB82245E2BA00CAC76C /* AppHostViewController+Scripts.m */; };
-		48551BC12246083C00CAC76C /* AppHostViewController+Dispatch.h in Headers */ = {isa = PBXBuildFile; fileRef = 48551BBF2246083C00CAC76C /* AppHostViewController+Dispatch.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		48551BC12246083C00CAC76C /* AppHostViewController+Dispatch.h in Headers */ = {isa = PBXBuildFile; fileRef = 48551BBF2246083C00CAC76C /* AppHostViewController+Dispatch.h */; };
 		48551BC22246083C00CAC76C /* AppHostViewController+Dispatch.m in Sources */ = {isa = PBXBuildFile; fileRef = 48551BC02246083C00CAC76C /* AppHostViewController+Dispatch.m */; };
 		48551BC5224608CE00CAC76C /* AppHostViewController+Utils.h in Headers */ = {isa = PBXBuildFile; fileRef = 48551BC3224608CE00CAC76C /* AppHostViewController+Utils.h */; };
 		48551BC6224608CE00CAC76C /* AppHostViewController+Utils.m in Sources */ = {isa = PBXBuildFile; fileRef = 48551BC4224608CE00CAC76C /* AppHostViewController+Utils.m */; };
@@ -66,7 +66,7 @@
 		48C8AEA721D5F3B800A6B426 /* AHURLChecker.m in Sources */ = {isa = PBXBuildFile; fileRef = 48C8AEA521D5F3B800A6B426 /* AHURLChecker.m */; };
 		48C8AEA821D5F3B800A6B426 /* AHURLChecker.h in Headers */ = {isa = PBXBuildFile; fileRef = 48C8AEA621D5F3B800A6B426 /* AHURLChecker.h */; };
 		48C8AEAD21D5F99E00A6B426 /* appHost_version_1.5.0.js in Resources */ = {isa = PBXBuildFile; fileRef = 48C8AEAB21D5F99E00A6B426 /* appHost_version_1.5.0.js */; };
-		48C8AEDE21D6293500A6B426 /* AppHostEnum.h in Headers */ = {isa = PBXBuildFile; fileRef = 48C8AEA421D5EFCC00A6B426 /* AppHostEnum.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		48C8AEDE21D6293500A6B426 /* AppHostEnum.h in Headers */ = {isa = PBXBuildFile; fileRef = 48C8AEA421D5EFCC00A6B426 /* AppHostEnum.h */; };
 		48CE9FBC2253816E00F3F7B7 /* AppHostViewController+Timing.h in Headers */ = {isa = PBXBuildFile; fileRef = 48CE9FBA2253816E00F3F7B7 /* AppHostViewController+Timing.h */; };
 		48CE9FBD2253816E00F3F7B7 /* AppHostViewController+Timing.m in Sources */ = {isa = PBXBuildFile; fileRef = 48CE9FBB2253816E00F3F7B7 /* AppHostViewController+Timing.m */; };
 		48D888AF21D4CF08006E4279 /* AppHost.h in Headers */ = {isa = PBXBuildFile; fileRef = 48D888AD21D4CF08006E4279 /* AppHost.h */; settings = {ATTRIBUTES = (Public, ); }; };

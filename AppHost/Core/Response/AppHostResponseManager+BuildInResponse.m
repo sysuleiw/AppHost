@@ -5,6 +5,7 @@
 
 #import "AppHostResponseManager+BuildInResponse.h"
 #import <UIKit/UIKit.h>
+#import "AppHostEnum.h"
 @import SafariServices;
 
 @implementation AppHostResponseManager (BuildInResponse)

@@ -5,16 +5,11 @@
 
 #import "AppHostCommentStore.h"
 
-
 @interface AppHostCommentStore()
 @property (nonatomic, strong) NSMutableDictionary *store;
 @property (nonatomic, copy) NSString *currentFuncName;
 @end
 @implementation AppHostCommentStore
-{
-
-}
-
 - (instancetype)init
 {
     self = [super init];
@@ -24,7 +19,7 @@
     }
     return  self;
 }
-- (NSDictionary *)getFuncCommentWithName:(NSString *)funcName
+- (NSDictionary *)getMethodCommentWithName:(NSString *)funcName
 {
     return [self.store objectForKey:funcName];
 }

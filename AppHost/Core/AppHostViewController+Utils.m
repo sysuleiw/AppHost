@@ -9,7 +9,7 @@
 #import "AppHostViewController+Utils.h"
 #import "AppHostViewController+Dispatch.h"
 #import "AHWebViewScrollPositionManager.h"
-
+#import "AppHostEnum.h"
 @implementation AppHostViewController (Utils)
 
 #pragma mark - supportType

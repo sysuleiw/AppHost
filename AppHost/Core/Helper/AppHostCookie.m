@@ -9,6 +9,8 @@
 #import "AppHostCookie.h"
 #import "AppHostEnum.h"
 
+static NSString * _Nonnull kAHLogoutNotification = @"kAHLogoutNotification";
+static NSString * _Nonnull kAHLoginSuccessNotification = @"kAHLoginSuccessNotification";
 @implementation AppHostCookie
 
 + (NSMutableArray<NSString *> *)cookieJavaScriptArray

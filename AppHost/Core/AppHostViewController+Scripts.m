@@ -8,7 +8,7 @@
 
 #import "AppHostViewController+Scripts.h"
 #import "AppHostViewController+Utils.h"
-
+#import "AppHostEnum.h"
 static NSInteger uniqueId = 0;
 @implementation AppHostViewController (Scripts)
 

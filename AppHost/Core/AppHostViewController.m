@@ -10,6 +10,7 @@
 
 #import "AppHostViewController.h"
 #import "Reachability.h"
+#import "AppHostEnum.h"
 #import "AHWebViewScrollPositionManager.h"
 #import "AppHostCookie.h"
 #import "AHScriptMessageDelegate.h"
@@ -30,13 +31,6 @@
 
 static NSString *const kAHScriptHandlerName = @"kAHScriptHandlerName";
 
-// 是否将客户端的 cookie 同步到 WKWebview 的 cookie 当中
-// 作为写 cookie 的假地址
-NSString *_Nonnull kFakeCookieWebPageURLWithQueryString;
-// 以下两个是为了设置进度条颜色和日志开关
-long long kWebViewProgressTintColorRGB;
-BOOL kGCDWebServer_logging_enabled = YES;
-
 /**
  * 代理类，管理所有 AppHostViewController 自身和 AppHostViewController 子类。
  * 使更具模块化，在保持灵活的同时，也保留了可读性。
@@ -52,7 +46,12 @@ BOOL kGCDWebServer_logging_enabled = YES;
     self = [super init];
     if (self) {
         // 注意：此时还没有 navigationController。
+        
         self.taskDelegate = [AHSchemeTaskDelegate new];
+        self.webViewProgressTintColorRGB = 0xdcb000;
+        self.fakeCookieWebPageURLWithQueryString = @"https://www.gfloan.com";
+        self.appHostUrlSchema = @"apphost";
+        
         [self.view addSubview:self.webView];
         [[AppHostResponseManager sharedManager] setWebviewVC:self];
     }
@@ -97,9 +96,9 @@ BOOL kGCDWebServer_logging_enabled = YES;
 - (void)setUrl:(NSString *)url
 {
     _url = url;
-    if (kFakeCookieWebPageURLWithQueryString.length > 0 && [AppHostCookie loginCookieHasBeenSynced] == NO) { // 此时需要同步 Cookie，走同步 Cookie 的流程
+    if (self.fakeCookieWebPageURLWithQueryString.length > 0 && [AppHostCookie loginCookieHasBeenSynced] == NO) { // 此时需要同步 Cookie，走同步 Cookie 的流程
         //
-        NSURL *cookieURL = [NSURL URLWithString:kFakeCookieWebPageURLWithQueryString];
+        NSURL *cookieURL = [NSURL URLWithString:self.fakeCookieWebPageURLWithQueryString];
         NSMutableURLRequest *mutableRequest = [NSMutableURLRequest requestWithURL:cookieURL cachePolicy:NSURLRequestUseProtocolCachePolicy timeoutInterval:120];
         WKWebView *cookieWebview = [self getCookieWebview];
         [self.view addSubview:cookieWebview];
@@ -276,7 +275,7 @@ NSLog(@"[Timing] %@, nowTime = %f", NSStringFromSelector(_cmd), [[NSDate date] t
     }
     NSURL *targetURL = webView.URL;
     // 如果是指明了 kFakeCookieWebPageURLWithQueryString 说明，需要同步此域下 Cookie；
-    if (kFakeCookieWebPageURLWithQueryString.length > 0 && [AppHostCookie loginCookieHasBeenSynced] == NO && targetURL.query.length > 0 && [kFakeCookieWebPageURLWithQueryString containsString:targetURL.query]) {
+    if (self.fakeCookieWebPageURLWithQueryString.length > 0 && [AppHostCookie loginCookieHasBeenSynced] == NO && targetURL.query.length > 0 && [self.fakeCookieWebPageURLWithQueryString containsString:targetURL.query]) {
         [AppHostCookie setLoginCookieHasBeenSynced:YES];
         // 加载真正的页面；此时已经有 App 的 cookie 存在了。
         [webView removeFromSuperview];
@@ -338,7 +337,7 @@ NSLog(@"[Timing] %@, nowTime = %f", NSStringFromSelector(_cmd), [[NSDate date] t
 
 - (WKWebView *)getCookieWebview
 {
-    if (![kFakeCookieWebPageURLWithQueryString containsString:@"?"]) {
+    if (![self.fakeCookieWebPageURLWithQueryString containsString:@"?"]) {
         NSAssert(NO, @"请配置 kFakeCookieWebPageURLString 参数，如在调用 AppHostViewController 的 .m 文件里定义，NSString *_Nonnull kFakeCookieWebPageURLWithQueryString = @\"https://www.163.com?028-983cnhd8-2\"");
         return nil;
     }
@@ -372,7 +371,7 @@ NSLog(@"[Timing] %@, nowTime = %f", NSStringFromSelector(_cmd), [[NSDate date] t
         webViewConfig.userContentController = userContentController;
         webViewConfig.allowsInlineMediaPlayback = YES;
         webViewConfig.processPool = [AppHostCookie sharedPoolManager];
-        [webViewConfig setURLSchemeHandler:self.taskDelegate forURLScheme:kAppHostURLScheme];
+        [webViewConfig setURLSchemeHandler:self.taskDelegate forURLScheme:self.appHostUrlSchema];
         [self injectScriptsToUserContent:userContentController];
         [self measure:kAppHostTimingAddUserScript to:kAppHostTimingWebViewInit];
 

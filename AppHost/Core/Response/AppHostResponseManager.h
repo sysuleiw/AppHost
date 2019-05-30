@@ -4,14 +4,20 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "AppHostEnum.h"
 #import "AppHostCommentStore.h"
 #import "AppHostViewController.h"
+
+
+typedef void (^AppHostResponseCallback)(id responseData);
+typedef void (^AppHostHandler)(id data, AppHostResponseCallback responseCallback);
 
 @interface AppHostResponseManager : NSObject
 
 + (instancetype)sharedManager;
 
+/**
+ * WebviewController
+ */
 @property (nonatomic, weak) id<WKNavigationDelegate> webviewVC;
 /**
  * 自定义js方法列表
@@ -41,6 +47,7 @@
 - (void)registerHandler:(NSString *)handlerName handler:(AppHostHandler)handler;
 - (void)removeHandler:(NSString *)handlerName;
 - (void)fire:(NSString *)actionName param:(NSDictionary *)paramDict callback:(AppHostResponseCallback)callback;
+
 /**
  * 存放函数注释
  */

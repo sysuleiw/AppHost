@@ -8,7 +8,6 @@
 
 #import <UIKit/UIKit.h>
 #import "AHSchemeTaskDelegate.h"
-#import "AppHostEnum.h"
 #import "AppHostResponseManager.h"
 static NSString *kAppHostInvokeRequestEvent = @"kAppHostInvokeRequestEvent";
 static NSString *kAppHostInvokeResponseEvent = @"kAppHostInvokeResponseEvent";
@@ -32,6 +31,11 @@ static NSString *kAppHostInvokeResponseEvent = @"kAppHostInvokeResponseEvent";
 //
 @property (nonatomic, strong, readonly) WKWebView *webView;
 
+// 是否将客户端的 cookie 同步到 WKWebview 的 cookie 当中
+@property (nonatomic, copy) NSString *fakeCookieWebPageURLWithQueryString;
+
+// 设置进度条的颜色，如 "0xff00ff";
+@property (nonatomic, assign) long long webViewProgressTintColorRGB;
 /**
  定制状态栏的配色
  */
@@ -41,6 +45,8 @@ static NSString *kAppHostInvokeResponseEvent = @"kAppHostInvokeResponseEvent";
  */
 @property (nonatomic, assign) BOOL disabledProgressor;
 
+// url拦截schema
+@property (nonatomic, copy) NSString *appHostUrlSchema;
 /**
  取消记住上次浏览历史的特性
  */
@@ -77,8 +83,6 @@ static NSString *kAppHostInvokeResponseEvent = @"kAppHostInvokeResponseEvent";
  @param baseDomain 为了解决相对路径 发送 xhr 请求的主域名地址，如 http://you.163.com
  */
 - (void)loadIndexFile:(NSString *)fileName inDirectory:(NSURL *)directory domain:(NSString *)baseDomain;
-
-
 
 
 @end

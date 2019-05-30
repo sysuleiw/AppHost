@@ -8,7 +8,7 @@
 
 #import "AppHostViewController+Progressor.h"
 #import <objc/runtime.h>
-
+#import "AppHostEnum.h"
 @implementation AppHostViewController (Progressor)
 
 - (void)startProgressor
@@ -24,7 +24,7 @@
     // 仿微信进度条
     self.progressorView = [[UIProgressView alloc] initWithFrame:CGRectMake(0, AH_NAVIGATION_BAR_HEIGHT, AH_SCREEN_WIDTH, 20.0f)];
     
-    self.progressorView.progressTintColor = kWebViewProgressTintColorRGB > 0? AHColorFromRGB(kWebViewProgressTintColorRGB):[UIColor grayColor];
+    self.progressorView.progressTintColor = self.webViewProgressTintColorRGB > 0? AHColorFromRGB(self.webViewProgressTintColorRGB):[UIColor grayColor];
     self.progressorView.trackTintColor = [UIColor whiteColor];
     [self.view addSubview:self.progressorView];
 }

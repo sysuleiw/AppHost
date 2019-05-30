@@ -6,6 +6,7 @@
 #import "AppHostResponseManager+RemoteDebugCmd.h"
 #import "AppHostViewController+Scripts.h"
 #import "AppHostCommentStore.h"
+#import "AppHostEnum.h"
 // 保存 weinre 注入脚本的地址，方便在加载其它页面时也能自动注入。
 static NSString *kLastWeinreScript = nil;
 
@@ -13,7 +14,7 @@ static NSString *kLastWeinreScript = nil;
 -(void)registerDebugCmdHandlers
 {
 #ifdef AH_DEBUG
-    kWeakSelf(self)
+    kWeakSelf(self);
     [self addRemoteDebuggerCallbackRespHandlerWithName:@"eval" handler:^(id data, AppHostResponseCallback responseCallback)
     {
         [(AppHostViewController *)weakself.webviewVC evalExpression:[data objectForKey:@"code"] completion:^(id  _Nonnull result, NSString * _Nonnull error) {
@@ -74,7 +75,7 @@ static NSString *kLastWeinreScript = nil;
     {
         NSString *signature = [data objectForKey:@"signature"];
         NSString *funcName = [@"apropos." stringByAppendingString:signature];
-        NSDictionary *doc = [weakself.cmtStore getFuncCommentWithName:signature];
+        NSDictionary *doc = [weakself.cmtStore getMethodCommentWithName:signature];
         if (doc) {
             [(AppHostViewController *)weakself.webviewVC fire:funcName param:doc];
         } else {

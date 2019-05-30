@@ -14,7 +14,7 @@
 #import "GCDWebServerURLEncodedFormRequest.h"
 #import "AHDebugViewController.h"
 #import "AppHostViewController+Dispatch.h"
-
+#import "AppHostEnum.h"
 @interface AHDebugServerManager () <AHDebugViewDelegate>
 
 @property (nonatomic, strong) dispatch_queue_t logQueue;
