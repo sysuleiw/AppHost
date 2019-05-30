@@ -17,6 +17,18 @@
                  .addMethodParam(@"url",@"要打开的url")
                  .addMethodReturnValue(@"nothing",@"没有参数");
 
+    [self registerHandler:@"openExternalUrl" handler:^NSDictionary *(id data, AppHostResponseCallback responseCallback) {
+        NSDictionary *paramDict = (NSDictionary *)data;
+        NSString *urlTxt = [paramDict objectForKey:@"url"];
+        BOOL forceOpenInSafari = [[paramDict objectForKey:@"openInSafari"] boolValue];
+        if (forceOpenInSafari) {
+            [[UIApplication sharedApplication] openURL:[NSURL URLWithString:urlTxt] options:@{} completionHandler:nil];
+        } else {
+            SFSafariViewController *safari = [[SFSafariViewController alloc] initWithURL:[NSURL URLWithString:urlTxt]];
+            [((AppHostViewController *)weakself.webviewVC).navigationController presentViewController:safari animated:YES completion:nil];
+        }
+        kAsyncCallbackAndReturnSyncResult(kResponseResultOK);
+    }];
     [self registerHandler:@"openExternalUrl" handler:^(id data, AppHostResponseCallback responseCallback)
     {
         NSDictionary *paramDict = (NSDictionary *)data;
@@ -28,6 +40,7 @@
             SFSafariViewController *safari = [[SFSafariViewController alloc] initWithURL:[NSURL URLWithString:urlTxt]];
             [((AppHostViewController *)weakself.webviewVC).navigationController presentViewController:safari animated:YES completion:nil];
         }
+        kAsyncCallbackAndReturnSyncResult(kResponseResultOK);
     }];
 
     [self registerHandler:@"startNewPage" handler:^(id data, AppHostResponseCallback responseCallback)
@@ -60,6 +73,7 @@
         } else {
             [((AppHostViewController *)weakself.webviewVC).navigationController pushViewController:freshOne animated:YES];
         }
+        kAsyncCallbackAndReturnSyncResult(kResponseResultOK);
     }];
 }
 - (void)insertShadowView:(NSDictionary *)paramDict

@@ -314,6 +314,27 @@ NSLog(@"[Timing] %@, nowTime = %f", NSStringFromSelector(_cmd), [[NSDate date] t
     [self stopProgressor];
 }
 
+- (void)webView:(WKWebView *)webView runJavaScriptTextInputPanelWithPrompt:(NSString *)prompt defaultText:(NSString *)defaultText initiatedByFrame:(WKFrameInfo *)frame completionHandler:(void (^)(NSString * _Nullable))completionHandler
+{
+    NSError *err = nil;
+    NSData *dataFromString = [prompt dataUsingEncoding:NSUTF8StringEncoding];
+    NSDictionary *payload = [NSJSONSerialization JSONObjectWithData:dataFromString options:NSJSONReadingMutableContainers error:&err];
+    if (!err)
+    {
+        NSURL *actualUrl = [NSURL URLWithString:self.url];
+        if (![[AHURLChecker sharedManager] checkURL:actualUrl forAuthorizationType:AHAuthorizationTypeAppHost]) {
+            NSLog(@"invalid url visited : %@", self.url);
+            completionHandler(kNSDictionaryToNSString(kResponseResultErr));
+        } else {
+            NSDictionary *res = [self dispatchParsingParameter:payload];
+            completionHandler(kNSDictionaryToNSString(res));
+        }
+    }
+    else
+    {
+        completionHandler(kNSDictionaryToNSString(kResponseResultErr));
+    }
+}
 #pragma mark -
 - (void)userContentController:(WKUserContentController *)userContentController didReceiveScriptMessage:(WKScriptMessage *)message
 {

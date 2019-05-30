@@ -15,7 +15,7 @@ static NSString *kLastWeinreScript = nil;
 {
 #ifdef AH_DEBUG
     kWeakSelf(self);
-    [self addRemoteDebuggerCallbackRespHandlerWithName:@"eval" handler:^(id data, AppHostResponseCallback responseCallback)
+    [self addRemoteDebuggerCallbackRespHandlerWithName:@"eval" handler:^NSDictionary *(id data, AppHostResponseCallback responseCallback)
     {
         [(AppHostViewController *)weakself.webviewVC evalExpression:[data objectForKey:@"code"] completion:^(id  _Nonnull result, NSString * _Nonnull error) {
             AHLog(@"%@, error = %@", result, error);
@@ -31,13 +31,15 @@ static NSString *kLastWeinreScript = nil;
             }
             [(AppHostViewController *)weakself.webviewVC fire:@"eval" param:r];
         }];
+        kAsyncCallbackAndReturnSyncResult(kResponseResultOK);
     }];
-    [self addRemoteDebuggerCallbackRespHandlerWithName:@"list" handler:^(id data, AppHostResponseCallback responseCallback)
+    [self addRemoteDebuggerCallbackRespHandlerWithName:@"list" handler:^NSDictionary *(id data, AppHostResponseCallback responseCallback)
     {
         [(AppHostViewController *)weakself.webviewVC fire:@"list" param:@{@"JSBridge":weakself.respHandlers.allKeys}];
+        kAsyncCallbackAndReturnSyncResult(kResponseResultOK);
     }];
 
-    [self addRemoteDebuggerCallbackRespHandlerWithName:@"weinre" handler:^(id data, AppHostResponseCallback responseCallback)
+    [self addRemoteDebuggerCallbackRespHandlerWithName:@"weinre" handler:^NSDictionary *(id data, AppHostResponseCallback responseCallback)
     {
         // $ weinre --boundHost 10.242.24.59 --httpPort 9090
         BOOL disabled = [[data objectForKey:@"disabled"] boolValue];
@@ -47,8 +49,9 @@ static NSString *kLastWeinreScript = nil;
             kLastWeinreScript = [data objectForKey:@"url"];
             [weakself enableWeinreSupport];
         }
+        kAsyncCallbackAndReturnSyncResult(kResponseResultOK);
     }];
-    [self addRemoteDebuggerCallbackRespHandlerWithName:@"timing" handler:^(id data, AppHostResponseCallback responseCallback)
+    [self addRemoteDebuggerCallbackRespHandlerWithName:@"timing" handler:^NSDictionary *(id data, AppHostResponseCallback responseCallback)
     {
         BOOL mobile = [[data objectForKey:@"mobile"] boolValue];
         if (mobile) {
@@ -58,8 +61,9 @@ static NSString *kLastWeinreScript = nil;
                 [(AppHostViewController *)weakself.webviewVC fire:@"requestToTiming_on_mac" param:r];
             }];
         }
+        kAsyncCallbackAndReturnSyncResult(kResponseResultOK);
     }];
-    [self addRemoteDebuggerCallbackRespHandlerWithName:@"clearCookie" handler:^(id data, AppHostResponseCallback responseCallback)
+    [self addRemoteDebuggerCallbackRespHandlerWithName:@"clearCookie" handler:^NSDictionary *(id data, AppHostResponseCallback responseCallback)
     {
         // 清理 WKWebview 的 Cookie，和 NSHTTPCookieStorage 是独立的
         WKHTTPCookieStore * _Nonnull cookieStorage = [WKWebsiteDataStore defaultDataStore].httpCookieStore;
@@ -70,8 +74,9 @@ static NSString *kLastWeinreScript = nil;
 
             [(AppHostViewController *)weakself.webviewVC fire:@"clearCookieDone" param:@{@"count":@(cookies.count)}];
         }];
+        kAsyncCallbackAndReturnSyncResult(kResponseResultOK);
     }];
-    [self addRemoteDebuggerCallbackRespHandlerWithName:@"apropos" handler:^(id data, AppHostResponseCallback responseCallback)
+    [self addRemoteDebuggerCallbackRespHandlerWithName:@"apropos" handler:^NSDictionary *(id data, AppHostResponseCallback responseCallback)
     {
         NSString *signature = [data objectForKey:@"signature"];
         NSString *funcName = [@"apropos." stringByAppendingString:signature];
@@ -82,6 +87,7 @@ static NSString *kLastWeinreScript = nil;
             NSString *err = [NSString stringWithFormat:@"The method (%@) doesn't exsit!", signature];
             [(AppHostViewController *)weakself.webviewVC fire:funcName param:@{@"error":err}];
         }
+        kAsyncCallbackAndReturnSyncResult(kResponseResultOK);
     }];
 
 #endif

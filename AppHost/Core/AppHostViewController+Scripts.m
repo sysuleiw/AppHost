@@ -55,9 +55,9 @@ static NSInteger uniqueId = 0;
 - (void)fire:(NSString *)actionName param:(NSDictionary *)paramDict callback:(AppHostResponseCallback)callback
 {
     NSString *uniqueStr = [NSString stringWithFormat:@"%@%zd", kNativeToWebCallbackKey, uniqueId++];
-    [[AppHostResponseManager sharedManager] addNativeCallbackRespHandlerWithName:uniqueStr handler:^(id data, AppHostResponseCallback responseCallback)
-    {
+    [[AppHostResponseManager sharedManager] addNativeCallbackRespHandlerWithName:uniqueStr handler:^NSDictionary *(id data, AppHostResponseCallback responseCallback) {
         callback(data);
+        return kResponseResultOK;
     }];
     NSMutableDictionary *mDict = [NSMutableDictionary dictionaryWithDictionary:paramDict];
     if (uniqueStr.length > 0)

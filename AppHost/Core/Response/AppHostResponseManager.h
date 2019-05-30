@@ -7,9 +7,17 @@
 #import "AppHostCommentStore.h"
 #import "AppHostViewController.h"
 
+#define kResponseResultOK @{@"res":@"1"}
+#define kResponseResultErr @{@"res":@"0"}
 
+//在注册的函数回调里面需要调用下面宏完成最终同步&异步返回
+#define kAsyncCallbackAndReturnSyncResult(dic)\
+({\
+responseCallback(dic);\
+return dic;\
+})
 typedef void (^AppHostResponseCallback)(id responseData);
-typedef void (^AppHostHandler)(id data, AppHostResponseCallback responseCallback);
+typedef NSDictionary* (^AppHostHandler)(id data, AppHostResponseCallback responseCallback);
 
 @interface AppHostResponseManager : NSObject
 

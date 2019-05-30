@@ -228,12 +228,12 @@
 		42CA24914E303900CD37C1A2 /* Response */ = {
 			isa = PBXGroup;
 			children = (
-				42CA2FEA70C8F96250F1579E /* AppHostResponseManager.m */,
 				42CA25632A709CA34E8E3CC7 /* AppHostResponseManager.h */,
-				42CA23F28B77D472397603D6 /* AppHostResponseManager+BuildInResponse.m */,
+				42CA2FEA70C8F96250F1579E /* AppHostResponseManager.m */,
 				42CA28D638D514E0361800FC /* AppHostResponseManager+BuildInResponse.h */,
-				42CA204F678FEE8A6A6CA205 /* AppHostResponseManager+RemoteDebugCmd.m */,
+				42CA23F28B77D472397603D6 /* AppHostResponseManager+BuildInResponse.m */,
 				42CA263721B340EBEF7F80D3 /* AppHostResponseManager+RemoteDebugCmd.h */,
+				42CA204F678FEE8A6A6CA205 /* AppHostResponseManager+RemoteDebugCmd.m */,
 			);
 			path = Response;
 			sourceTree = "<group>";

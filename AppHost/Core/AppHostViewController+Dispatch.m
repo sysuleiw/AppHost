@@ -14,32 +14,34 @@
 @implementation AppHostViewController (Dispatch)
 
 #pragma mark - core
-- (void)dispatchParsingParameter:(NSDictionary *)contentJSON
+- (NSDictionary *)dispatchParsingParameter:(NSDictionary *)contentJSON
 {
     // 增加对异常参数的catch
     @try {
         NSString *actionKey = [contentJSON objectForKey:kAHActionKey];
         NSDictionary *paramDict = [contentJSON objectForKey:kAHParamKey];
         NSString *callbackKey = [contentJSON objectForKey:kAHCallbackKey];
-        [self callNative:actionKey parameter:paramDict callbackKey:callbackKey];
+        NSDictionary *res = [self callNative:actionKey parameter:paramDict callbackKey:callbackKey];
         
         [[NSNotificationCenter defaultCenter] postNotificationName:kAppHostInvokeRequestEvent object:contentJSON];
+        return res;
+        
     } @catch (NSException *exception) {
         [self showTextTip:@"H5接口异常"];
         AHLog(@"h5接口解析异常，接口数据：%@", contentJSON);
-    } @finally {
-    }
+        return kResponseResultErr;
+    } 
 }
 
 #pragma mark - public
 // 延迟初始化； 短路判断
-- (BOOL)callNative:(NSString *)action parameter:(NSDictionary *)paramDict
+- (NSDictionary *)callNative:(NSString *)action parameter:(NSDictionary *)paramDict
 {
     return [self callNative:action parameter:paramDict callbackKey:nil];
 }
 
 #pragma mark - private
-- (BOOL)callNative:(NSString *)action parameter:(NSDictionary *)paramDict callbackKey:(NSString *)key
+- (NSDictionary *)callNative:(NSString *)action parameter:(NSDictionary *)paramDict callbackKey:(NSString *)key
 {
     AppHostHandler handler = (AppHostHandler)[[AppHostResponseManager sharedManager].respHandlers objectForKey:action];
     if (!handler)
@@ -78,11 +80,10 @@
         [self fire:@"NotSupported" param:@{
                                            @"error": errMsg
                                            }];
-        return NO;
+        return kResponseResultErr;
     } else {
         //calback已经是堆block无需copy
-        handler(paramDict,calback);
-        return YES;
+        return handler(paramDict,calback);
     }
 }
 

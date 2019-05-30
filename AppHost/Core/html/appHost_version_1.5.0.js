@@ -5,6 +5,16 @@
     
     var callbackPool = {};
     var ack_no = 1;
+    //同步方式，appHost.invokeSync('getDataWithParamCallback',{"a":"wl"})
+    window.appHost.invokeSync = function(_action, _data) {
+        var fullParam = {
+            action: _action,
+            param: _data
+        };
+        var param = JSON.stringify(fullParam);
+        return window.prompt(param);
+    }
+    //默认是异步方式，appHost.invoke('getDataWithParamCallback',{"a":"wl"},function(a){console.log(a)})
     window.appHost.invoke = function(_action, _data, _callback) {
         var rndKey = 'cbk_' + new Date().getTime();
         var fullParam = {
@@ -59,7 +69,7 @@
         if (typeof func == 'function') {
             func(_param);
             // 释放,只用一次
-            callbackPool[_callbackKey] = nil;
+            delete callbackPool[_callbackKey];
         }
     }
 }(window);

@@ -16,11 +16,11 @@ NS_ASSUME_NONNULL_BEGIN
  * 核心的h5调用native接口的分发器；
  * @return 是否已经被处理，YES 表示可被处理；
  */
-- (BOOL)callNative:(NSString *)action parameter:(NSDictionary *)paramDict;
+- (NSDictionary *)callNative:(NSString *)action parameter:(NSDictionary *)paramDict;
 
 #pragma mark - like private
 
-- (void)dispatchParsingParameter:(NSDictionary *)contentJSON;
+- (NSDictionary *)dispatchParsingParameter:(NSDictionary *)contentJSON;
 
 @end
 

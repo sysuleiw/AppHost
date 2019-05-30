@@ -12,6 +12,18 @@
 static NSString *kAppHostInvokeRequestEvent = @"kAppHostInvokeRequestEvent";
 static NSString *kAppHostInvokeResponseEvent = @"kAppHostInvokeResponseEvent";
 
+#define kNSDictionaryToNSString(res) \
+({\
+NSError *err = nil;\
+NSData *data = [NSJSONSerialization dataWithJSONObject:res options:NSJSONWritingPrettyPrinted error:&err];\
+NSString *str = @"";\
+if (err)\
+{\
+    data = [NSJSONSerialization dataWithJSONObject:kResponseResultErr options:NSJSONWritingPrettyPrinted error:&err];\
+}\
+str = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];\
+(str);\
+})
 @class AppHostViewController;
 
 
