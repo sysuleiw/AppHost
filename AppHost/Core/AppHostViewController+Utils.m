@@ -15,12 +15,7 @@
 #pragma mark - supportType
 - (NSDictionary *)supportListByNow
 {
-    //人肉维护支持列表；
-    NSMutableDictionary *supportedFunctions = [@{
-                                                 //增加apphost的supportTypeFunction
-                                                 @"getDataWithParamCallback" : @"2",
-                                                 @"openExternalUrl" : @"2"
-                                                 } mutableCopy];
+    NSMutableDictionary *supportedFunctions = [[[[AppHostResponseManager sharedManager] respHandlers] allKeys] mutableCopy];
 
     NSMutableDictionary *lst = [NSMutableDictionary dictionaryWithCapacity:10];
     [lst setObject:supportedFunctions forKey:@"supportFunctionType"];
